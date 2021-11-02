@@ -15,7 +15,7 @@
             <h2>Proyecto Tema 4</h2>
         </header>
         <main>
-            
+            <a href="codigoPHP/conexion.php">a ver</a>
         </main>
         <footer>
             <div>Modificado el 02/1/2021 - Mª Isabel Martínez Guerra</div>
