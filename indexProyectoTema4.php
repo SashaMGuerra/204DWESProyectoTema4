@@ -8,6 +8,7 @@
         <meta charset="UTF-8">
         <title>IMG - Tema 4</title>
         <link href="webroot/css/common.css" rel="stylesheet" type="text/css"/>
+        <link href="webroot/css/indexProyectoTema4.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <header>
