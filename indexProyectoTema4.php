@@ -29,6 +29,13 @@
                     <th>Ejecutar</th>
                     <th>Mostrar</th>
                 </tr>
+                <tr>
+                    <td>Conexión a la base de datos con la cuenta usuario y tratamiento de errores.</td>
+                    <td><a href="codigoPHP/practica01PDO.php">ejecutar</a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo01PDO.php">mostrar</a></td>
+                    <td><a href="codigoPHP/practica01MySQLi.php">ejecutar</a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo01MySQLi.php">mostrar</a></td>
+                </tr>
             </table>
         </main>
         <footer>
