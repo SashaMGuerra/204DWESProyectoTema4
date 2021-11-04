@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1>Atributos de la conexión a la base de datos</h1>
-        
+
         <?php
         /**
          * @author Isabel Martínez Guerra
@@ -34,7 +34,7 @@
         
         // Establecimiento de la conexión.
         $oPDO = new PDO(CONEXION, USUARIO, PASSWD);
-                
+
         // Array de atributos de la conexión.
         $aAtributos = array(
             "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
@@ -46,7 +46,7 @@
         echo '<table>';
         foreach ($aAtributos as $atributo) {
             echo "<tr><td>PDO::ATTR_$atributo: </td>";
-            echo '<td>'.$oPDO->getAttribute(constant("PDO::ATTR_$atributo")) . "</td></tr>";
+            echo '<td>' . $oPDO->getAttribute(constant("PDO::ATTR_$atributo")) . "</td></tr>";
         }
         echo '</table>';
 

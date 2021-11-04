@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Atributos de la conexión a la base de datos</h1>
-        
+
         <?php
         /**
          * @author Isabel Martínez Guerra
@@ -22,26 +22,32 @@
          */
         
         // Constantes para la conexión con la base de datos.
-        define('CONEXION', 'mysql:host=192.168.3.104;dbname=DAW204DBDepartamentos');
+        define('CONEXION', '192.168.3.104');
         define('USUARIO', 'usuarioDAW204DBDepartamentos');
         define('PASSWD', 'P@ssw0rd');
         define('DATABASE', 'DAW204DBDepartamentos');
-        
+
+
         // Establecimiento de la conexión.
         $oDB = new mysqli();
         $oDB->connect(CONEXION, USUARIO, PASSWD, DATABASE);
         
-        $oError = $oDB->connect_errno;
+        /*
+         * Mostrado del código de error de la conexión. Si no hay ninguno (está
+         * en código 0), muestra que la conexión se ha realizado correctamente.
+         */
+        $iError = $oDB->connect_errno;
+        if($iError!=0){
+            echo "<div>Código de error de la última llamada: $iError</div>";
+        }
+        else{
+            echo "<div>Conexión sin errores.</div>";
+        }
         
-        var_dump($oDB);
-        var_dump($oError);
-        
-                
-        // Array de atributos de la conexión.
-
-        // Recorrido y mostrado de los atributos de la conexión.
-
         // Cierre de la conexión.
+        $oDB->close();
+        
+        
         ?>
     </body>
 </html>
