@@ -28,12 +28,10 @@
          */
         
         // Constantes para la conexión con la base de datos.
-        define('CONEXION', 'mysql:host=192.168.3.104;dbname=DAW204DBDepartamentos');
-        define('USUARIO', 'usuarioDAW204DBDepartamentos');
-        define('PASSWD', 'P@ssw0rd');
+        include '../config/configDBPDO.php';
         
         // Establecimiento de la conexión.
-        $oPDO = new PDO(CONEXION, USUARIO, PASSWD);
+        $oPDO = new PDO(HOST, USER, PASSWORD);
 
         // Array de atributos de la conexión.
         $aAtributos = array(

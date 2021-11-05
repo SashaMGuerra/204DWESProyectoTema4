@@ -37,6 +37,13 @@
                     <td><a href="codigoPHP/practica02MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo02MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
+                <tr>
+                    <td class="porhacer">3. Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores.</td>
+                    <td><a href="codigoPHP/practica03PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo03PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
+                    <td><a href="codigoPHP/practica03MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo03MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
+                </tr>
             </table>
         </main>
         <footer>

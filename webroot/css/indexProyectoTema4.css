@@ -2,10 +2,27 @@
     Created on : 3 nov. 2021, 9:55:55
     Author     : Sasha
 */
-
+.cambiar{
+    color: blue;
+}
+.porhacer{
+    color: red;
+}
+.noaun{
+    color: darkgray;
+}
 
 table{
-    width: 100%;
+    text-align: center;
+    margin: auto;
+    width: 97%;
+    border-collapse: collapse;
+}
+td:first-child{
+    text-align: left;
+}
+td:nth-child(even){
+    border-left: 1px solid gainsboro;
 }
 
 img{

@@ -25,15 +25,11 @@
          */
         
         // Constantes para la conexión con la base de datos.
-        define('CONEXION', '192.168.3.104');
-        define('USUARIO', 'usuarioDAW204DBDepartamentos');
-        define('PASSWD', 'P@ssw0rd');
-        define('DATABASE', 'DAW204DBDepartamentos');
-
+        include '../config/configDBMySQLi.php';
 
         // Establecimiento de la conexión.
         $oDB = new mysqli();
-        $oDB->connect(CONEXION, USUARIO, PASSWD, DATABASE);
+        $oDB->connect(HOST, USER, PASSWORD, DB);
         
         /*
          * Mostrado del código de error de la conexión. Si no hay ninguno (está
