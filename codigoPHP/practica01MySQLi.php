@@ -9,10 +9,13 @@
         <title>IMG - DWES 4-1 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
+            tr:nth-child(odd){
+                background-color: gainsboro;
+            }
         </style>
     </head>
     <body>
-        <h1>Atributos de la conexión a la base de datos</h1>
+        <h1>Conexión mediante MySQLi.</h1>
 
         <?php
         /**
@@ -43,6 +46,17 @@
         else{
             echo "<div>Conexión sin errores.</div>";
         }
+        
+        /*
+         * Mostrado del estadod e la conexión.
+         */
+        echo '<h2>Estado de la conexión.</h2><table>';
+        foreach ($oDB->get_connection_stats() as $sStat => $value) {
+            echo "<tr><td>$sStat</td>";
+            echo "<td>$value</td></tr>";
+        }
+        echo '</table>';
+        
         
         // Cierre de la conexión.
         $oDB->close();
