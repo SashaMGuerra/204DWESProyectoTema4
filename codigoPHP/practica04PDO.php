@@ -6,25 +6,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - DWES 4-3 PDO</title>
+        <title>IMG - DWES 4-4 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            .obligatorio:after{
-                content: "*";
-                color: red;
+            form{
+                margin: auto;
+                max-width: 500px;
             }
-            .inputObligatorio{
-                background-color: gainsboro;
+            table{
+                margin: auto;
             }
+            
             span{
                 font-size: small;
                 color: red;
             }
             
-            .showVariables{
+            .showSelect{
                 border-collapse: collapse;
             }
-            .showVariables td{
+            .showSelect td, .showSelect th{
                 border: 1px solid gainsboro;
                 padding: 5px;
             }
@@ -39,7 +40,7 @@
              * @version 1.0
              * @author Sasha
              * 
-             * Introducción de datos en la tabla Departamento mediante formulario.
+             * Búsqueda y mostrado de departamentos según descripción.
              */
 
             //Librería de validación.
@@ -47,7 +48,6 @@
             
             // Constantes para la conexión con la base de datos.
             require_once '../config/configDBPDO.php';
-            
             
             /*
              * Definición de constantes para el parámetro "obligatorio"
@@ -59,18 +59,14 @@
              * Inicialización del array de elementos del formulario.
              */
             $aFormulario = [
-                'codDepartamento' => '',
-                'descDepartamento' => '',
-                'volumenNegocio' => ''
+                'descDepartamento' => ''
             ];
 
             /*
              * Inicialización del array de errores.
              */
             $aErrores = [
-                'codDepartamento' => '',
-                'descDepartamento' => '',
-                'volumenNegocio' => ''
+                'descDepartamento' => ''
             ];
 
             /*
@@ -87,9 +83,7 @@
                 /*
                  * Registro de errores. Valida todos los campos.
                  */
-                $aErrores['codDepartamento'] = validacionFormularios::comprobarAlfabetico($_REQUEST['codDepartamento'], 3, 3, OBLIGATORIO);
-                $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 5, OBLIGATORIO);
-                $aErrores['volumenNegocio'] = validacionFormularios::comprobarFloat($_REQUEST['volumenNegocio'], 5000, 0, OBLIGATORIO);
+                $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 3, OPCIONAL);
                 
                 /*
                  * Recorrido del array de errores.
@@ -121,9 +115,7 @@
                 /*
                  * Recogida de la información enviada.
                  */
-                $aFormulario['codDepartamento'] = $_REQUEST['codDepartamento'];
                 $aFormulario['descDepartamento'] = $_REQUEST['descDepartamento'];
-                $aFormulario['volumenNegocio'] = $_REQUEST['volumenNegocio'];
                 
                 /*
                  * Inserción en la base de datos.
@@ -135,29 +127,40 @@
                     // Mostrado de las excepciones.
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
-                    // Query de inserción.
-                    $sConsulta = <<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio) values
-                            ('{$aFormulario['codDepartamento']}', '{$aFormulario['descDepartamento']}', {$aFormulario['volumenNegocio']});
-                    QUERY;
+                    // Query de búsqueda.
+                    if($aFormulario['descDepartamento']==''){
+                        $sConsulta = 'select * from Departamento';
+                    }
+                    else{
+                        $sConsulta = <<<QUERY
+                            select * from Departamento where descDepartamento like '%{$aFormulario['descDepartamento']}%';
+                        QUERY;
+                    }
                     
                     /*
                      * Ejecución del query.
                      */
-                    $iRegistros = $oDB->exec($sConsulta);
+                    $oResultadoConsulta = $oDB->query($sConsulta);
                     
+                    echo '<h2>Departamentos encontrados: </h2>';
                     /*
-                    * Mostrado del contenido recogido por el formulario
-                    * en una tabla.
-                    */
-                   echo "<h2>Se han hecho $iRegistros registros:</h2>";
-                   echo '<table class="showVariables">';
-                   foreach ($aFormulario as $key => $value) {
-                       echo '<tr>';
-                       echo "<td>$key</td><td>$value</td>";
-                       echo '</tr>';
-                   }
-                   echo '</table>';
+                     * Mostrado del select.
+                     */
+                    $aQuery = $oResultadoConsulta->fetchObject();
+                    echo '<table class="showSelect">';
+                    columnsNameRow($oResultadoConsulta);
+                    while($aQuery){
+                        echo '<tr>';
+                        foreach ($aQuery as $valor) {
+                            echo "<td>$valor</td>";
+                        }
+                        echo '</tr>';
+                        $aQuery = $oResultadoConsulta->fetchObject();
+                    }
+                    echo '</table>';
+                    
+                    
+                    
                     
                 }catch(Exception $exception){
                     /*
@@ -170,8 +173,6 @@
                 finally{
                     unset($oDB);
                 }
-                
-                
             }
             
             /*
@@ -189,22 +190,16 @@
             
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <fieldset>
-                    <legend>Inserción en la tabla Departamento</legend>
+                    <legend>Búsqueda de departamentos</legend>
                     <table>
                         <tr>
-                            <td><label class="obligatorio" for="codDepartamento">Código del departamento</label></td>
-                            <td><label class="obligatorio" for="descDepartamento">Descripción</label></td>
-                            <td><label class="obligatorio" for="volumenNegocio">Volumen de negocio</label></td>
+                            <td><label for="descDepartamento">Departamento a buscar</label></td>
                         </tr>
                         <tr>
-                            <td><input class="inputObligatorio" type="text" name="codDepartamento" id="codDepartamento" value="<?php echo $_REQUEST['codDepartamento'] ?? '' ?>" placeholder="ABC"></td>
-                            <td><input class="inputObligatorio" type="text" name="descDepartamento" id="descDepartamento" value="<?php echo $_REQUEST['descDepartamento'] ?? '' ?>"></td>
-                            <td><input class="inputObligatorio" type="text" name="volumenNegocio" id="volumenNegocio" value="<?php echo $_REQUEST['volumenNegocio'] ?? '' ?>" placeholder="Ej.: 1.75"></td>
+                            <td><input type="text" name="descDepartamento" id="descDepartamento" value="<?php echo $_REQUEST['descDepartamento'] ?? '' ?>"></td>
                         </tr>
                         <tr>
-                            <td><?php echo '<span>' . $aErrores['codDepartamento'] . '</span>' ?></td>
                             <td><?php echo '<span>' . $aErrores['descDepartamento'] . '</span>' ?></td>
-                            <td><?php echo '<span>' . $aErrores['volumenNegocio'] . '</span>' ?></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -212,6 +207,22 @@
             </form>
             
             <?php
+            }
+            
+            /**
+            * Extrae de una consulta el número de columnas tomadas, y crea una línea
+            * de una tabla con una celda para el nombre de cada una.
+            * 
+            * @param PDOStatement $oResultadoConsulta Sentencia preparada de la
+            * que extraer los nombres de las columnas.
+            */
+            function columnsNameRow($oResultadoConsulta){
+                $iNumColumnas = $oResultadoConsulta->columnCount();
+                echo '<tr>';
+                for($iColumna = 0; $iColumna<$iNumColumnas ;$iColumna++){
+                    echo "<th>".$oResultadoConsulta->getColumnMeta($iColumna)['name']."</th>";
+                }
+                echo '</tr>';
             }
             ?>
         </main>

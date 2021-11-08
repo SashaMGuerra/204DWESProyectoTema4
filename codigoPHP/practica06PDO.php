@@ -6,16 +6,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - DWES 4-3 PDO</title>
+        <title>IMG - DWES 4-6 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            .obligatorio:after{
-                content: "*";
-                color: red;
+            form{
+                width: 100%;
+                max-width: 500px;
             }
-            .inputObligatorio{
-                background-color: gainsboro;
+            table{
+                margin: auto;
             }
+            
             span{
                 font-size: small;
                 color: red;
@@ -39,7 +40,8 @@
              * @version 1.0
              * @author Sasha
              * 
-             * Introducción de datos en la tabla Departamento mediante formulario.
+             * Carga de registros en Departamento desde un array utilizando
+             * una consulta preparada.
              */
 
             //Librería de validación.
@@ -47,7 +49,6 @@
             
             // Constantes para la conexión con la base de datos.
             require_once '../config/configDBPDO.php';
-            
             
             /*
              * Definición de constantes para el parámetro "obligatorio"
@@ -135,22 +136,31 @@
                     // Mostrado de las excepciones.
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
-                    // Query de inserción.
-                    $sConsulta = <<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio) values
-                            ('{$aFormulario['codDepartamento']}', '{$aFormulario['descDepartamento']}', {$aFormulario['volumenNegocio']});
-                    QUERY;
-                    
+                    // Consulta preparada.
+                    $oConsulta = $oDB->prepare(<<<QUERY
+                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio)
+                            values (:codDep, :descDep, :volNeg);
+                    QUERY);
+                            
                     /*
-                     * Ejecución del query.
+                     * Array con la información que sustituirá los parámetros.
                      */
-                    $iRegistros = $oDB->exec($sConsulta);
+                    $aParametros = [
+                        ':codDep' => $aFormulario['codDepartamento'],
+                        ':descDep' => $aFormulario['descDepartamento'],
+                        ':volNeg' => $aFormulario['volumenNegocio']
+                    ];
+                            
+                    /*
+                     * Ejecución de la consulta preparada
+                     */
+                    $oConsulta->execute($aParametros);
                     
                     /*
                     * Mostrado del contenido recogido por el formulario
                     * en una tabla.
                     */
-                   echo "<h2>Se han hecho $iRegistros registros:</h2>";
+                   echo "<h2>Registros realizados:</h2>";
                    echo '<table class="showVariables">';
                    foreach ($aFormulario as $key => $value) {
                        echo '<tr>';
@@ -171,7 +181,6 @@
                     unset($oDB);
                 }
                 
-                
             }
             
             /*
@@ -189,7 +198,7 @@
             
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <fieldset>
-                    <legend>Inserción en la tabla Departamento</legend>
+                    <legend>Registro</legend>
                     <table>
                         <tr>
                             <td><label class="obligatorio" for="codDepartamento">Código del departamento</label></td>
@@ -212,6 +221,22 @@
             </form>
             
             <?php
+            }
+            
+            /**
+            * Extrae de una consulta el número de columnas tomadas, y crea una línea
+            * de una tabla con una celda para el nombre de cada una.
+            * 
+            * @param PDOStatement $oResultadoConsulta Sentencia preparada de la
+            * que extraer los nombres de las columnas.
+            */
+            function columnsNameRow($oResultadoConsulta){
+                $iNumColumnas = $oResultadoConsulta->columnCount();
+                echo '<tr>';
+                for($iColumna = 0; $iColumna<$iNumColumnas ;$iColumna++){
+                    echo "<th>".$oResultadoConsulta->getColumnMeta($iColumna)['name']."</th>";
+                }
+                echo '</tr>';
             }
             ?>
         </main>

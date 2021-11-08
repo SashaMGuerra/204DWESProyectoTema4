@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - Mostrar 03 PDO</title>
+        <title>IMG - Mostrar 05 PDO</title>
     </head>
     <body>
         <?php
@@ -14,10 +14,10 @@
          * @author Isabel Martínez Guerra
          * Fecha: 08/11/2021
          * 
-         * Mostrado de la práctica 03.
+         * Mostrado de la práctica 05.
          */
         
-        highlight_file('../codigoPHP/practica03PDO.php');
+        highlight_file('../codigoPHP/practica05PDO.php');
         
         ?>
     </body>

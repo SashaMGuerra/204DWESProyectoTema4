@@ -10,7 +10,7 @@
  */
 
 // Desarrollo - Instituto.
-define('HOST', 'mysql:host=192.168.3.104;dbname=DAW204DBDepartamentos');
+define('HOST', 'mysql:host=192.168.1.30;dbname=DAW204DBDepartamentos');
 define('USER', 'usuarioDAW204DBDepartamentos');
 define('PASSWORD', 'P@ssw0rd');
 
