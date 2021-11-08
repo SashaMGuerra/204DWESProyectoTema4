@@ -30,88 +30,106 @@
          */
         
         // Constantes para la conexión con la base de datos.
-        include '../config/configDBPDO.php';
+        require_once '../config/configDBPDO.php';
         
-        // Establecimiento de la conexión.
-        $oDB = new PDO(HOST, USER, PASSWORD);
-
-        /* 
-         * Query de selección de todo el contenido de la tabla.
-         * 
-         * Devuelve un PDOStatement
-         */
-        $sConsulta = 'select * from Departamento';
-        $oResultadoConsulta = $oDB->query($sConsulta);
-
-        // Mostrado del número de filas devueltas por el query.
-        echo '<div>La tabla Departamentos tiene '.$oResultadoConsulta->rowCount().' registros.</div>';
-
-        
-        /*
-         * Mostrado de la información devuelta por el query mediante fetch,
-         * dándole como parámetro el estilo de fetch de objeto.
-         */
-        echo '<h2>Mediante fetch</h2>';
-        $aQuery = $oResultadoConsulta->fetch(PDO::FETCH_OBJ);
-        echo '<table>';
-        columnsNameRow($oResultadoConsulta);
-        while($aQuery){
-            echo '<tr>';
-            foreach ($aQuery as $valor) {
-                echo "<td>$valor</td>";
-            }
-            echo '</tr>';
-            $aQuery = $oResultadoConsulta->fetch(pdo::FETCH_OBJ);
-        }
-        echo '</table>';
-        
-        /*
-         * Reselección de la información para repetir el mostrado de información.
-         */
-        $oResultadoConsulta = $oDB->query($sConsulta);
-        
-        
-        /*
-         * Mostrado de la información devuelta por el query mediante fetchObject
-         */
-        echo '<h2>Mediante fetchObject</h2>';
-        $aQuery = $oResultadoConsulta->fetchObject();
-        echo '<table>';
-        columnsNameRow($oResultadoConsulta);
-        while($aQuery){
-            echo '<tr>';
-            foreach ($aQuery as $valor) {
-                echo "<td>$valor</td>";
-            }
-            echo '</tr>';
-            $aQuery = $oResultadoConsulta->fetchObject();
-        }
-        echo '</table>';
-        
-        /*
-         * Reselección de la información para repetir el mostrado de información.
-         */
-        $oResultadoConsulta = $oDB->query($sConsulta);
-        
-        /*
-         * Mostrado de la información devuelta por el query mediante fetchAll,
-         * dándole como parámetro el estilo de fetch de objeto.
-         */
-        echo '<h2>Mediante fetchAll</h2>';
-        $aQuery = $oResultadoConsulta->fetchAll(PDO::FETCH_OBJ);
-        echo '<table>';
-        columnsNameRow($oResultadoConsulta);
-        foreach ($aQuery as $aFila) {
-            echo '<tr>';
-            foreach ($aFila as $valor) {
-                echo "<td>$valor</td>";
-            }
-            echo '</tr>';
+        try{
+            // Establecimiento de la conexión.
+            $oDB = new PDO(HOST, USER, PASSWORD);
             
+            // Mostrado de las excepciones.
+            $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            /* 
+             * Query de selección de todo el contenido de la tabla.
+             */
+            $sConsulta = 'select * from Departamento';
+            $oResultadoConsulta = $oDB->query($sConsulta);
+
+            // Mostrado del número de filas devueltas por el query.
+            echo '<div>La tabla Departamentos tiene '.$oResultadoConsulta->rowCount().' registros.</div>';
+
+
+            /*
+             * Mostrado de la información devuelta por el query mediante fetch,
+             * dándole como parámetro el estilo de fetch de objeto.
+             */
+            echo '<h2>Mediante fetch</h2>';
+            $aQuery = $oResultadoConsulta->fetch(PDO::FETCH_OBJ);
+            echo '<table>';
+            columnsNameRow($oResultadoConsulta);
+            while($aQuery){
+                echo '<tr>';
+                foreach ($aQuery as $valor) {
+                    echo "<td>$valor</td>";
+                }
+                echo '</tr>';
+                $aQuery = $oResultadoConsulta->fetch(pdo::FETCH_OBJ);
+            }
+            echo '</table>';
+
+            /*
+             * Reselección de la información para repetir el mostrado de información.
+             */
+            $oResultadoConsulta = $oDB->query($sConsulta);
+
+
+            /*
+             * Mostrado de la información devuelta por el query mediante fetchObject
+             */
+            echo '<h2>Mediante fetchObject</h2>';
+            $aQuery = $oResultadoConsulta->fetchObject();
+            echo '<table>';
+            columnsNameRow($oResultadoConsulta);
+            while($aQuery){
+                echo '<tr>';
+                foreach ($aQuery as $valor) {
+                    echo "<td>$valor</td>";
+                }
+                echo '</tr>';
+                $aQuery = $oResultadoConsulta->fetchObject();
+            }
+            echo '</table>';
+
+            /*
+             * Reselección de la información para repetir el mostrado de información.
+             */
+            $oResultadoConsulta = $oDB->query($sConsulta);
+
+            /*
+             * Mostrado de la información devuelta por el query mediante fetchAll,
+             * dándole como parámetro el estilo de fetch de objeto.
+             */
+            echo '<h2>Mediante fetchAll</h2>';
+            $aQuery = $oResultadoConsulta->fetchAll(PDO::FETCH_OBJ);
+            echo '<table>';
+            columnsNameRow($oResultadoConsulta);
+            foreach ($aQuery as $aFila) {
+                echo '<tr>';
+                foreach ($aFila as $valor) {
+                    echo "<td>$valor</td>";
+                }
+                echo '</tr>';
+                }
         }
         
-        // Cierre de la conexión.
-        unset($oDB);
+        /*
+         * Captura de excepciones.
+         */ 
+        catch(Exception $exception){
+            /*
+             * Mostrado del código de error y su mensaje.
+             */
+            echo '<div>Se han encontrado errores:</div><ul>';
+            echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+            echo '</ul>';
+        }
+        
+        /*
+         * Cierre de la conexión.
+         */
+        finally {
+            unset($oDB);
+        }
         
         /**
          * Extrae de una consulta el número de columnas tomadas, y crea una línea
