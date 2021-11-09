@@ -30,15 +30,15 @@
         // Constantes para la conexión con la base de datos.
         include '../config/configDBPDO.php';
         
-        // Establecimiento de la conexión.
-        $oPDO = new PDO(HOST, USER, PASSWORD);
-
         // Array de atributos de la conexión.
         $aAtributos = array(
             "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
             "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION",
             "TIMEOUT"
         );
+        
+        // Establecimiento de la conexión.
+        $oPDO = new PDO(HOST, USER, PASSWORD);
 
         // Recorrido y mostrado de los atributos de la conexión.
         echo '<table>';
@@ -49,7 +49,7 @@
         echo '</table>';
 
         // Cierre de la conexión.
-        unset($oPDO);
+        unset($oPDO);        
         ?>
     </body>
 </html>

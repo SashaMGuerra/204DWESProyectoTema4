@@ -138,8 +138,8 @@
                     
                     // Consulta preparada.
                     $oConsulta = $oDB->prepare(<<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio)
-                            values (:codDep, :descDep, :volNeg);
+                            insert into Departamento
+                            values (:codDep, :descDep, null, :volNeg);
                     QUERY);
                             
                     /*
@@ -169,7 +169,7 @@
                    }
                    echo '</table>';
                     
-                }catch(Exception $exception){
+                }catch(PDOException $exception){
                     /*
                      * Mostrado del código de error y su mensaje.
                      */

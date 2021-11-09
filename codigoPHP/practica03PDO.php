@@ -87,7 +87,7 @@
                 /*
                  * Registro de errores. Valida todos los campos.
                  */
-                $aErrores['codDepartamento'] = validacionFormularios::comprobarAlfabetico($_REQUEST['codDepartamento'], 3, 3, OBLIGATORIO);
+                $aErrores['codDepartamento'] = validarCodDepartamento($_REQUEST['codDepartamento']);
                 $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 5, OBLIGATORIO);
                 $aErrores['volumenNegocio'] = validacionFormularios::comprobarFloat($_REQUEST['volumenNegocio'], 5000, 0, OBLIGATORIO);
                 
@@ -137,8 +137,8 @@
                     
                     // Query de inserción.
                     $sConsulta = <<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio) values
-                            ('{$aFormulario['codDepartamento']}', '{$aFormulario['descDepartamento']}', {$aFormulario['volumenNegocio']});
+                            insert into Departamento values
+                            ('{$aFormulario['codDepartamento']}', '{$aFormulario['descDepartamento']}', null, {$aFormulario['volumenNegocio']});
                     QUERY;
                     
                     /*
@@ -159,7 +159,7 @@
                    }
                    echo '</table>';
                     
-                }catch(Exception $exception){
+                }catch(PDOException $exception){
                     /*
                      * Mostrado del código de error y su mensaje.
                      */
@@ -213,6 +213,68 @@
             
             <?php
             }
+            
+            /**
+             * Comprueba la validez del código de departamento.
+             * Debe tener tres letras mayúsculas.
+             * No puede existir ya en la base de datos.
+             * 
+             * @param string $codDepartamento Código del departamento introducido.
+             * @return string|null String si ha encontrado un error, con su descripción.
+             * Null si no ha habido ningún error.
+             */
+            function validarCodDepartamento($codDepartamento){
+                /*
+                 * Comprobación del texto introducido como alfabético y de tres caracteres.
+                 */
+                $errorCode = validacionFormularios::comprobarAlfabetico($_REQUEST['codDepartamento'], 3, 3, OBLIGATORIO);
+                
+                /*
+                 * Comprobación si el código introducido está en mayúscula.
+                 */
+                if($codDepartamento !== strtoupper($codDepartamento)){
+                    $errorCode = 'El código del departamento debe estar en mayúscula.';
+                }
+                
+                /*
+                 * Comprobación de existencia en la base de datos.
+                 */
+                try{
+                    // Conexión con la base de datos.
+                    $oDB = new PDO(HOST, USER, PASSWORD);
+                    
+                    // Mostrado de las excepciones.
+                    $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    
+                    // Query de selección.
+                    $sConsulta = <<<QUERY
+                            select codDepartamento from Departamento where codDepartamento = '{$codDepartamento}';
+                    QUERY;
+                    
+                    /*
+                     * Ejecución del query.
+                     */
+                    $oResultado = $oDB->query($sConsulta);
+                    
+                    if($oResultado->rowCount()>0){
+                        $errorCode = 'No puede haber dos departamentos con el mismo código.';
+                    }
+                    
+                }catch(PDOException $exception){
+                    /*
+                     * Mostrado del código de error y su mensaje.
+                     */
+                    echo '<div>Se han encontrado errores en la validación:</div><ul>';
+                    echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+                    echo '</ul>';
+                }
+                finally{
+                    unset($oDB);
+                }
+                
+                return $errorCode;
+            }
+            
             ?>
         </main>
 

@@ -164,16 +164,16 @@
                     
                     // Queries de inserción.
                     $sInsert1 = <<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio) values
-                            ('{$aFormulario['codDepartamento1']}', '{$aFormulario['descDepartamento1']}', {$aFormulario['volumenNegocio1']});
+                            insert into Departamento values
+                            ('{$aFormulario['codDepartamento1']}', '{$aFormulario['descDepartamento1']}', null, {$aFormulario['volumenNegocio1']});
                     QUERY;
                     $sInsert2 = <<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio) values
-                            ('{$aFormulario['codDepartamento2']}', '{$aFormulario['descDepartamento2']}', {$aFormulario['volumenNegocio2']});
+                            insert into Departamento values
+                            ('{$aFormulario['codDepartamento2']}', '{$aFormulario['descDepartamento2']}', null, {$aFormulario['volumenNegocio2']});
                     QUERY;
                     $sInsert3 = <<<QUERY
-                            insert into Departamento(codDepartamento, descDepartamento, volumenNegocio) values
-                            ('{$aFormulario['codDepartamento3']}', '{$aFormulario['descDepartamento3']}', {$aFormulario['volumenNegocio3']});
+                            insert into Departamento values
+                            ('{$aFormulario['codDepartamento3']}', '{$aFormulario['descDepartamento3']}', null, {$aFormulario['volumenNegocio3']});
                     QUERY;
                             
                     /*
@@ -204,7 +204,7 @@
                    }
                    echo '</table>';
                     
-                }catch(Exception $exception){
+                }catch(PDOException $exception){
                     /*
                      * Mostrado del código de error y su mensaje.
                      */

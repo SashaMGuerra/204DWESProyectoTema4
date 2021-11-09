@@ -54,16 +54,16 @@
              * dándole como parámetro el estilo de fetch de objeto.
              */
             echo '<h2>Mediante fetch</h2>';
-            $aQuery = $oResultadoConsulta->fetch(PDO::FETCH_OBJ);
+            $oDepartamento = $oResultadoConsulta->fetch(PDO::FETCH_OBJ);
             echo '<table>';
             columnsNameRow($oResultadoConsulta);
-            while($aQuery){
+            while($oDepartamento){
                 echo '<tr>';
-                foreach ($aQuery as $valor) {
+                foreach ($oDepartamento as $valor) {
                     echo "<td>$valor</td>";
                 }
                 echo '</tr>';
-                $aQuery = $oResultadoConsulta->fetch(pdo::FETCH_OBJ);
+                $oDepartamento = $oResultadoConsulta->fetch(pdo::FETCH_OBJ);
             }
             echo '</table>';
 
@@ -72,21 +72,20 @@
              */
             $oResultadoConsulta = $oDB->query($sConsulta);
 
-
             /*
              * Mostrado de la información devuelta por el query mediante fetchObject
              */
             echo '<h2>Mediante fetchObject</h2>';
-            $aQuery = $oResultadoConsulta->fetchObject();
+            $oDepartamento = $oResultadoConsulta->fetchObject();
             echo '<table>';
             columnsNameRow($oResultadoConsulta);
-            while($aQuery){
+            while($oDepartamento){
                 echo '<tr>';
-                foreach ($aQuery as $valor) {
+                foreach ($oDepartamento as $valor) {
                     echo "<td>$valor</td>";
                 }
                 echo '</tr>';
-                $aQuery = $oResultadoConsulta->fetchObject();
+                $oDepartamento = $oResultadoConsulta->fetchObject();
             }
             echo '</table>';
 
@@ -100,10 +99,10 @@
              * dándole como parámetro el estilo de fetch de objeto.
              */
             echo '<h2>Mediante fetchAll</h2>';
-            $aQuery = $oResultadoConsulta->fetchAll(PDO::FETCH_OBJ);
+            $oDepartamento = $oResultadoConsulta->fetchAll(PDO::FETCH_OBJ);
             echo '<table>';
             columnsNameRow($oResultadoConsulta);
-            foreach ($aQuery as $aFila) {
+            foreach ($oDepartamento as $aFila) {
                 echo '<tr>';
                 foreach ($aFila as $valor) {
                     echo "<td>$valor</td>";
@@ -115,7 +114,7 @@
         /*
          * Captura de excepciones.
          */ 
-        catch(Exception $exception){
+        catch(PDOException $exception){
             /*
              * Mostrado del código de error y su mensaje.
              */

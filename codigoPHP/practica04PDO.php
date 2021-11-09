@@ -162,7 +162,7 @@
                     
                     
                     
-                }catch(Exception $exception){
+                }catch(PDOException $exception){
                     /*
                      * Mostrado del código de error y su mensaje.
                      */
