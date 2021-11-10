@@ -28,28 +28,83 @@
          */
         
         // Constantes para la conexión con la base de datos.
-        include '../config/configDBPDO.php';
+        require_once '../config/configDBPDO.php';
         
-        // Array de atributos de la conexión.
-        $aAtributos = array(
-            "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
-            "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION",
-            "TIMEOUT"
-        );
+        echo '<h2>Conexión correcta</h2>';
         
-        // Establecimiento de la conexión.
-        $oPDO = new PDO(HOST, USER, PASSWORD);
+        try{
+            /*
+             * Array de atributos de la conexión.
+             */
+            $aAtributos = array(
+                "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
+                "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION",
+                "TIMEOUT"
+            );
 
-        // Recorrido y mostrado de los atributos de la conexión.
-        echo '<table>';
-        foreach ($aAtributos as $atributo) {
-            echo "<tr><td>PDO::ATTR_$atributo: </td>";
-            echo '<td>' . $oPDO->getAttribute(constant("PDO::ATTR_$atributo")) . "</td></tr>";
+            // Establecimiento de la conexión.
+            $oPDO = new PDO(HOST, USER, PASSWORD);
+            $oPDO->setAttribute(PDO_ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Recorrido y mostrado de los atributos de la conexión.
+            echo '<table>';
+            foreach ($aAtributos as $atributo) {
+                echo "<tr><td>PDO::ATTR_$atributo: </td>";
+                echo '<td>' . $oPDO->getAttribute(constant("PDO::ATTR_$atributo")) . "</td></tr>";
+            }
+            echo '</table>';  
+
+            
+        }catch(PDOException $exception){
+            /*
+             * Mostrado del código de error y su mensaje.
+             */
+            echo '<div>Se han encontrado errores:</div><ul>';
+            echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+            echo '</ul>';
         }
-        echo '</table>';
+        finally{
+            unset($oPDO);
+        }
+        
+        echo '<h2>Conexión incorrecta</h2>';
+        
+        try{
+            /*
+             * Array de atributos de la conexión.
+             */
+            $aAtributos = array(
+                "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
+                "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION",
+                "TIMEOUT"
+            );
 
-        // Cierre de la conexión.
-        unset($oPDO);        
+            // Establecimiento de la conexión.
+            $oPDO = new PDO(HOST, USER, 'paso');
+            $oPDO->setAttribute(PDO_ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Recorrido y mostrado de los atributos de la conexión.
+            echo '<table>';
+            foreach ($aAtributos as $atributo) {
+                echo "<tr><td>PDO::ATTR_$atributo: </td>";
+                echo '<td>' . $oPDO->getAttribute(constant("PDO::ATTR_$atributo")) . "</td></tr>";
+            }
+            echo '</table>';  
+
+            
+        }catch(PDOException $exception){
+            /*
+             * Mostrado del código de error y su mensaje.
+             */
+            echo '<div>Se han encontrado errores:</div><ul>';
+            echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+            echo '</ul>';
+        }
+        finally{
+            unset($oPDO);
+        }
+        
+           
         ?>
     </body>
 </html>

@@ -129,18 +129,19 @@
                     
                     // Query de búsqueda.
                     if($aFormulario['descDepartamento']==''){
-                        $sConsulta = 'select * from Departamento';
+                        $sConsulta = 'SELECT * FROM Departamento';
                     }
                     else{
                         $sConsulta = <<<QUERY
-                            select * from Departamento where descDepartamento like '%{$aFormulario['descDepartamento']}%';
+                            SELECT * FROM Departamento WHERE descDepartamento LIKE '%{$aFormulario['descDepartamento']}%';
                         QUERY;
                     }
                     
                     /*
-                     * Ejecución del query.
+                     * Ejecución de la consulta preparada.
                      */
-                    $oResultadoConsulta = $oDB->query($sConsulta);
+                    $oResultadoConsulta = $oDB->prepare($sConsulta);
+                    $oResultadoConsulta->execute();
                     
                     echo '<h2>Departamentos encontrados: </h2>';
                     /*
@@ -158,9 +159,6 @@
                         $aQuery = $oResultadoConsulta->fetchObject();
                     }
                     echo '</table>';
-                    
-                    
-                    
                     
                 }catch(PDOException $exception){
                     /*

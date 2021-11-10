@@ -159,22 +159,22 @@
                     // Mostrado de las excepciones.
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
-                    // Inicio de la transacción, deshabilita el autocommit.
-                    $oDB->beginTransaction();
-                    
                     // Queries de inserción.
                     $sInsert1 = <<<QUERY
-                            insert into Departamento values
+                            INSERT INTO Departamento VALUES
                             ('{$aFormulario['codDepartamento1']}', '{$aFormulario['descDepartamento1']}', null, {$aFormulario['volumenNegocio1']});
                     QUERY;
                     $sInsert2 = <<<QUERY
-                            insert into Departamento values
+                            INSERT INTO Departamento VALUES
                             ('{$aFormulario['codDepartamento2']}', '{$aFormulario['descDepartamento2']}', null, {$aFormulario['volumenNegocio2']});
                     QUERY;
                     $sInsert3 = <<<QUERY
-                            insert into Departamento values
+                            INSERT INTO Departamento VALUES
                             ('{$aFormulario['codDepartamento3']}', '{$aFormulario['descDepartamento3']}', null, {$aFormulario['volumenNegocio3']});
                     QUERY;
+                    
+                    // Inicio de la transacción, deshabilita el autocommit.
+                    $oDB->beginTransaction();
                             
                     /*
                      * Ejecución de los queries.
@@ -185,11 +185,8 @@
                     
                     /*
                      * Si no ha habido ningún error, commitea los cambios.
-                     * Si no, vuelve atrás.
                      */
-                    if(!$oDB->commit()){
-                        $oDB->rollback();
-                    }
+                    $oDB->commit();
                     
                     /*
                     * Mostrado del contenido recogido por el formulario
@@ -205,6 +202,10 @@
                    echo '</table>';
                     
                 }catch(PDOException $exception){
+                    /*
+                     * Si ha habido algún error, vuelve atrás.
+                     */
+                    $oDB->rollback();
                     /*
                      * Mostrado del código de error y su mensaje.
                      */

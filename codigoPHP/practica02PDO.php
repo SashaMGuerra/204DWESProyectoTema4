@@ -40,10 +40,21 @@
             $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             /* 
-             * Query de selección de todo el contenido de la tabla.
+             * Consulta preparada de selección de todo el contenido de la tabla.
+             * Cambiado del modo de fetch 
              */
-            $sConsulta = 'select * from Departamento';
-            $oResultadoConsulta = $oDB->query($sConsulta);
+            $sConsulta = 'SELECT * FROM Departamento';
+            
+            /*
+             * Establecimiento del valor del tipo de cursor a CURSOR_SCROLL
+             * para obtener un cursor desplazable.
+             */
+            //$oResultadoConsulta = $oDB->prepare($sConsulta, [PDO_ATTR_CURSOR => PDO_CURSOR_SCROLL]);
+            
+            /*
+             * Ejecución de la consulta preparada.
+             */
+            $oResultadoConsulta->execute();
 
             // Mostrado del número de filas devueltas por el query.
             echo '<div>La tabla Departamentos tiene '.$oResultadoConsulta->rowCount().' registros.</div>';
@@ -70,7 +81,7 @@
             /*
              * Reselección de la información para repetir el mostrado de información.
              */
-            $oResultadoConsulta = $oDB->query($sConsulta);
+            //$oResultadoConsulta = $oDB->query($sConsulta);
 
             /*
              * Mostrado de la información devuelta por el query mediante fetchObject

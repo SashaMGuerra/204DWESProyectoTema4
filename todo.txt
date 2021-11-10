@@ -1,2 +1,9 @@
-2 - Cursor : cambiar a tres ejercicios
-3 - 
+2 - Cursor : Consulta preparada
+
+- SQL en mayúscula
+
+funcionar consulta
+validar entrada
+excepciones
+consulta preparada
+    , 2, , , 5, 

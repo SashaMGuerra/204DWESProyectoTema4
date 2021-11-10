@@ -136,21 +136,33 @@
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                     // Query de inserción.
-                    $sConsulta = <<<QUERY
-                            insert into Departamento values
-                            ('{$aFormulario['codDepartamento']}', '{$aFormulario['descDepartamento']}', null, {$aFormulario['volumenNegocio']});
+                    $sSentencia = <<<QUERY
+                            INSERT INTO Departamento VALUES
+                            (:codDep, :descDep, null, :volNeg);
                     QUERY;
                     
+                    // Consulta preparada.
+                    $oConsulta = $oDB->prepare($sSentencia);
+                    
                     /*
-                     * Ejecución del query.
+                     * Array con la información que sustituirá los parámetros.
                      */
-                    $iRegistros = $oDB->exec($sConsulta);
+                    $aParametros = [
+                        ':codDep' => $aFormulario['codDepartamento'],
+                        ':descDep' => $aFormulario['descDepartamento'],
+                        ':volNeg' => $aFormulario['volumenNegocio']
+                    ];
+                            
+                    /*
+                     * Ejecución de la consulta.
+                     */
+                    $oConsulta->execute($aParametros);
                     
                     /*
                     * Mostrado del contenido recogido por el formulario
                     * en una tabla.
                     */
-                   echo "<h2>Se han hecho $iRegistros registros:</h2>";
+                   echo "<h2>Registro realizado:</h2>";
                    echo '<table class="showVariables">';
                    foreach ($aFormulario as $key => $value) {
                        echo '<tr>';
@@ -235,42 +247,45 @@
                 if($codDepartamento !== strtoupper($codDepartamento)){
                     $errorCode = 'El código del departamento debe estar en mayúscula.';
                 }
+                else{
+                    /*
+                    * Comprobación de existencia en la base de datos.
+                    */
+                   try{
+                       // Conexión con la base de datos.
+                       $oDB = new PDO(HOST, USER, PASSWORD);
+
+                       // Mostrado de las excepciones.
+                       $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                       // Query de selección.
+                       $sConsulta = <<<QUERY
+                               SELECT codDepartamento FROM Departamento WHERE codDepartamento = '{$codDepartamento}';
+                       QUERY;
+
+                       /*
+                        * Ejecución del query.
+                        */
+                       $oResultado = $oDB->query($sConsulta);
+
+                       if($oResultado->rowCount()>0){
+                           $errorCode = 'No puede haber dos departamentos con el mismo código.';
+                       }
+
+                   }catch(PDOException $exception){
+                       /*
+                        * Mostrado del código de error y su mensaje.
+                        */
+                       echo '<div>Se han encontrado errores en la validación:</div><ul>';
+                       echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+                       echo '</ul>';
+                   }
+                   finally{
+                       unset($oDB);
+                   }
+                }
                 
-                /*
-                 * Comprobación de existencia en la base de datos.
-                 */
-                try{
-                    // Conexión con la base de datos.
-                    $oDB = new PDO(HOST, USER, PASSWORD);
-                    
-                    // Mostrado de las excepciones.
-                    $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    
-                    // Query de selección.
-                    $sConsulta = <<<QUERY
-                            select codDepartamento from Departamento where codDepartamento = '{$codDepartamento}';
-                    QUERY;
-                    
-                    /*
-                     * Ejecución del query.
-                     */
-                    $oResultado = $oDB->query($sConsulta);
-                    
-                    if($oResultado->rowCount()>0){
-                        $errorCode = 'No puede haber dos departamentos con el mismo código.';
-                    }
-                    
-                }catch(PDOException $exception){
-                    /*
-                     * Mostrado del código de error y su mensaje.
-                     */
-                    echo '<div>Se han encontrado errores en la validación:</div><ul>';
-                    echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
-                    echo '</ul>';
-                }
-                finally{
-                    unset($oDB);
-                }
+                
                 
                 return $errorCode;
             }

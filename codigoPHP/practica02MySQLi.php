@@ -52,7 +52,7 @@
          * 
          * Devuelve un mysqli_result
          */
-        $sConsulta = 'select * from Departamento';
+        $sConsulta = 'SELECT * FROM Departamento';
         $oResultadoConsulta = $oDB->query($sConsulta);
         
         /*

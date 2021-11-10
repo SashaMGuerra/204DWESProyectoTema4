@@ -1,16 +1,16 @@
 /* Creación de la base de datos */
-create database if not exists DAW204DBDepartamentos;
+CREATE DATABASE IF NOT EXISTS DAW204DBDepartamentos;
 
-use DAW204DBDepartamentos;
+USE DAW204DBDepartamentos;
 
 /* Creación de las tablas */
-create table if not exists Departamento(
-    codDepartamento varchar(3) primary key,
-    descDepartamento varchar(255) not null,
-    fechaBaja date null,
-    volumenNegocio float null
+CREATE TABLE IF NOT EXISTS Departamento(
+    codDepartamento VARCHAR(3) PRIMARY KEY,
+    descDepartamento VARCHAR(255) NOT NULL,
+    fechaBaja DATE NULL,
+    volumenNegocio FLOAT NULL
 ) engine=innodb;
 
 /* Creación del usuario */
-create user if not exists 'usuarioDAW204DBDepartamentos'@'%' identified by 'P@ssw0rd';
-grant all on DAW204DBDepartamentos.* to 'usuarioDAW204DBDepartamentos'@'%';
+CREATE USER IF NOT EXISTS 'usuarioDAW204DBDepartamentos'@'%' IDENTIFIED BY 'P@ssw0rd';
+GRANT ALL ON DAW204DBDepartamentos.* TO 'usuarioDAW204DBDepartamentos'@'%';
