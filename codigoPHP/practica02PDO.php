@@ -25,6 +25,7 @@
         <?php
         /**
          * @author Isabel Martínez Guerra
+         * Fecha de modificación: 10/11/2021
          * 
          * Mostrado del contenido de la tabla Departamento.
          */
@@ -49,7 +50,7 @@
              * Establecimiento del valor del tipo de cursor a CURSOR_SCROLL
              * para obtener un cursor desplazable.
              */
-            //$oResultadoConsulta = $oDB->prepare($sConsulta, [PDO_ATTR_CURSOR => PDO_CURSOR_SCROLL]);
+            $oResultadoConsulta = $oDB->prepare($sConsulta);
             
             /*
              * Ejecución de la consulta preparada.
@@ -58,7 +59,6 @@
 
             // Mostrado del número de filas devueltas por el query.
             echo '<div>La tabla Departamentos tiene '.$oResultadoConsulta->rowCount().' registros.</div>';
-
 
             /*
              * Mostrado de la información devuelta por el query mediante fetch,
@@ -81,7 +81,7 @@
             /*
              * Reselección de la información para repetir el mostrado de información.
              */
-            //$oResultadoConsulta = $oDB->query($sConsulta);
+            $oResultadoConsulta = $oDB->query($sConsulta);
 
             /*
              * Mostrado de la información devuelta por el query mediante fetchObject

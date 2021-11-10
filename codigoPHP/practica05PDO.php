@@ -35,7 +35,7 @@
             <?php
             /*
              * Fecha de creación: 08/10/2021
-             * Fecha de última modificación: 08/10/2021
+             * Fecha de última modificación: 10/10/2021
              * @version 1.0
              * @author Sasha
              * 
@@ -153,35 +153,36 @@
                  * Inserción en la base de datos.
                  */
                 try{
+                    // Query de inserción.
+                    $sSentencia = <<<QUERY
+                            INSERT INTO Departamento VALUES
+                            (:codDep, :descDep, null, :volNeg);
+                    QUERY;
+                    
                     // Conexión con la base de datos.
                     $oDB = new PDO(HOST, USER, PASSWORD);
                     
                     // Mostrado de las excepciones.
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
-                    // Queries de inserción.
-                    $sInsert1 = <<<QUERY
-                            INSERT INTO Departamento VALUES
-                            ('{$aFormulario['codDepartamento1']}', '{$aFormulario['descDepartamento1']}', null, {$aFormulario['volumenNegocio1']});
-                    QUERY;
-                    $sInsert2 = <<<QUERY
-                            INSERT INTO Departamento VALUES
-                            ('{$aFormulario['codDepartamento2']}', '{$aFormulario['descDepartamento2']}', null, {$aFormulario['volumenNegocio2']});
-                    QUERY;
-                    $sInsert3 = <<<QUERY
-                            INSERT INTO Departamento VALUES
-                            ('{$aFormulario['codDepartamento3']}', '{$aFormulario['descDepartamento3']}', null, {$aFormulario['volumenNegocio3']});
-                    QUERY;
-                    
                     // Inicio de la transacción, deshabilita el autocommit.
                     $oDB->beginTransaction();
-                            
-                    /*
-                     * Ejecución de los queries.
+                    
+                    // Preparación de la sentencia.
+                    $oConsulta = $oDB->prepare($sSentencia);
+                    
+                    /**
+                     * Por cada departamento, ejecución de la consulta.
                      */
-                    $iRegistros = $oDB->exec($sInsert1);
-                    $iRegistros = $oDB->exec($sInsert2);
-                    $iRegistros = $oDB->exec($sInsert3);
+                    for($iDepartamento = 1; $iDepartamento <= 3 ;$iDepartamento++){
+                        $aParamentos = [
+                            ':codDep' => $aFormulario['codDepartamento'.$iDepartamento],
+                            ':descDep' => $aFormulario['descDepartamento'.$iDepartamento],
+                            ':volNeg' => $aFormulario['volumenNegocio'.$iDepartamento]
+                        ];
+                        
+                        $oConsulta->execute($aParamentos);
+                    }
                     
                     /*
                      * Si no ha habido ningún error, commitea los cambios.

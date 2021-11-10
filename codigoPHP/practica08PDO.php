@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - DWES 4-6 PDO</title>
+        <title>IMG - DWES 4-8 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             form{
@@ -35,27 +35,24 @@
         <main>
             <?php
             /*
-             * Fecha de creación: 08/10/2021
+             * Fecha de creación: 10/10/2021
              * Fecha de última modificación: 10/10/2021
              * @version 1.0
              * @author Sasha
              * 
-             * Carga de registros en Departamento desde un array utilizando
-             * una consulta preparada.
+             * Toma datos de la tabla Departamento y los guarda en departamento.xml
+             * (copia de seguridad/exportar).
              */
-
 
             // Constantes para la conexión con la base de datos.
             require_once '../config/configDBPDO.php';
 
-            // Array con los departamentos a insertar.
-            $aDepartamentos = [
-                ["codDepartamento" => 'AIR', "descDepartamento" => 'Departamento Aire', 'volumenNegocio' => 0.57],
-                ["codDepartamento" => 'AVA', "descDepartamento" => 'Departamento Agua', 'volumenNegocio' => 57.98],
-                ["codDepartamento" => 'TIE', "descDepartamento" => 'Departamento Tierra', 'volumenNegocio' => 57]
-            ];
-
+            /**
+             * Recogida de los datos de la tabla Departamento.
+             */
             try {
+                $sSentencia = 'SELECT * FROM Departamento';
+                
                 // Conexión con la base de datos.
                 $oDB = new PDO(HOST, USER, PASSWORD);
 
@@ -63,46 +60,28 @@
                 $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 // Consulta preparada.
-                $oConsulta = $oDB->prepare(<<<QUERY
-                        INSERT INTO Departamento
-                        VALUES (:codDep, :descDep, null, :volNeg);
-                QUERY);
+                $oConsulta = $oDB->prepare($sSentencia);
 
                 // Comienzo de la transacción.
                 $oDB->beginTransaction();
+                
+                // Ejecución del select.
+                $oConsulta->execute();
 
                 /*
-                 * Ejecución de la consulta preparada por cada departamento.
+                 * Mientras recoja un departamento, lo añade al xml.
                  */
-                foreach ($aDepartamentos as $aDepartamento) {
-                    /*
-                     * Modificación de los parámetros por cada departamento.
-                     */
-                    $aParametros = [
-                        ':codDep' => $aDepartamento['codDepartamento'],
-                        ':descDep' => $aDepartamento['descDepartamento'],
-                        ':volNeg' => $aDepartamento['volumenNegocio']
-                    ];
-
-                    $oConsulta->execute($aParametros);
+                $oDepartamento = $oConsulta->fetchObject();
+                while($oDepartamento){
+                    
+                    
+                    $oDepartamento = $oConsulta->fetchObject();
                 }
-                
-                // Mostrado de la información registrada.
-                echo '<h2>Se han realizado los registros.</h2><table>';
-                foreach ($aDepartamentos as $aDepartamento) {
-                    echo '<tr>';
-                    foreach ($aDepartamento as $sCampo) {
-                        echo "<td>$sCampo</td>";
-                    }
-                    echo '</tr>';
-                }
-                echo '</table>';
 
                 /*
                  * Si todo ha salido bien, commitea cambios.
                  */
                 $oDB->commit();
-                
                 
             } catch (PDOException $exception) {
                 /*
@@ -118,6 +97,7 @@
             } finally {
                 unset($oDB);
             }
+            
             ?>
         </main>
     </body>

@@ -1,9 +1,1 @@
 2 - Cursor : Consulta preparada
-
-- SQL en mayúscula
-
-funcionar consulta
-validar entrada
-excepciones
-consulta preparada
-    , 2, , , 5, 

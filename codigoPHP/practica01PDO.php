@@ -23,6 +23,7 @@
         <?php
         /**
          * @author Isabel Martínez Guerra
+         * Fecha de modificación: 10/11/2021
          * 
          * Conexión a la base de datos con PDO.
          */

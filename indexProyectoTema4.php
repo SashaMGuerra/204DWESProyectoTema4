@@ -66,6 +66,13 @@
                     <td></td>
                     <td></td>
                 </tr>
+                <tr>
+                    <td class="porhacer">8. Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml.</td>
+                    <td><a href="codigoPHP/practica08PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo08PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
         </main>
         <footer>
