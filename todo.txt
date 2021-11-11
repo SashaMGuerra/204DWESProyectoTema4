@@ -1,5 +1,1 @@
 2 - Cursor : Consulta preparada
-4 - Simplificar el programa
-5 - No hace falta el formulario.
-
-8 - Consulta preparada.

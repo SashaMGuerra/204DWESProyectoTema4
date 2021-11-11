@@ -17,9 +17,13 @@ table{
     margin: auto;
     width: 97%;
     border-collapse: collapse;
+    max-width: 1200px;
+}
+td{
+    padding: 5px; 
 }
 td:first-child{
-    text-align: left;
+    text-align: justify;
 }
 td:nth-child(even){
     border-left: 1px solid gainsboro;

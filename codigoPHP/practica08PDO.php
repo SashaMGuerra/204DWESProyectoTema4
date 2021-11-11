@@ -8,13 +8,22 @@
         <meta charset="UTF-8">
         <title>IMG - DWES 4-8 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            a{
+                text-decoration: none;
+                color: black;
+            }
+        </style>
     </head>
     <body>
+        <header>
+            <h1>Copia de seguridad / Exportación de la tabla Departamento</h1>
+        </header>
         <main>
             <?php
             /*
              * Fecha de creación: 10/10/2021
-             * Fecha de última modificación: 10/10/2021
+             * Fecha de última modificación: 11/10/2021
              * @version 1.0
              * @author Sasha
              * 
@@ -82,13 +91,16 @@
                 }
                 
                 // Guardado del archivo.
-                echo $oDoc->save('../tmp/prueba.xml').' bytes escritos';
+                echo '<div>Se han escrito '.$oDoc->save('../tmp/tablaDepartamento.xml').' bytes</div>';
                 
-
                 /*
                  * Si todo ha salido bien, commitea cambios.
                  */
                 $oDB->commit();
+                
+                ?>
+                <button><a href="practica08PDOdescargarArchivo.php">Descárgame :)</a></button>
+                <?php
                 
             } catch (PDOException $exception) {
                 /*
@@ -106,6 +118,7 @@
             }
             
             ?>
+            
         </main>
     </body>
 </html>

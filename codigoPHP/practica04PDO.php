@@ -144,12 +144,12 @@
                      */
                     $aDepartamento = $oResultadoConsulta->fetchObject();
                     echo '<table class="showSelect">';
-                    columnsNameRow($oResultadoConsulta);
                     while($aDepartamento){
                         echo '<tr>';
-                        foreach ($aDepartamento as $valor) {
-                            echo "<td>$valor</td>";
-                        }
+                        echo "<td>$aDepartamento->codDepartamento</td>";
+                        echo "<td>$aDepartamento->descDepartamento</td>";
+                        echo "<td>$aDepartamento->fechaBaja</td>";
+                        echo "<td>$aDepartamento->volumenNegocio</td>";
                         echo '</tr>';
                         $aDepartamento = $oResultadoConsulta->fetchObject();
                     }
@@ -202,21 +202,6 @@
             <?php
             }
             
-            /**
-            * Extrae de una consulta el número de columnas tomadas, y crea una línea
-            * de una tabla con una celda para el nombre de cada una.
-            * 
-            * @param PDOStatement $oResultadoConsulta Sentencia preparada de la
-            * que extraer los nombres de las columnas.
-            */
-            function columnsNameRow($oResultadoConsulta){
-                $iNumColumnas = $oResultadoConsulta->columnCount();
-                echo '<tr>';
-                for($iColumna = 0; $iColumna<$iNumColumnas ;$iColumna++){
-                    echo "<th>".$oResultadoConsulta->getColumnMeta($iColumna)['name']."</th>";
-                }
-                echo '</tr>';
-            }
             ?>
         </main>
 
