@@ -83,7 +83,7 @@
                 /*
                  * Registro de errores. Valida todos los campos.
                  */
-                $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 3, OPCIONAL);
+                $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 1, OPCIONAL);
                 
                 /*
                  * Recorrido del array de errores.
@@ -128,14 +128,9 @@
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                     // Query de búsqueda.
-                    if($aFormulario['descDepartamento']==''){
-                        $sConsulta = 'SELECT * FROM Departamento';
-                    }
-                    else{
-                        $sConsulta = <<<QUERY
-                            SELECT * FROM Departamento WHERE descDepartamento LIKE '%{$aFormulario['descDepartamento']}%';
-                        QUERY;
-                    }
+                    $sConsulta = <<<QUERY
+                        SELECT * FROM Departamento WHERE descDepartamento LIKE '%{$aFormulario['descDepartamento']}%';
+                    QUERY;
                     
                     /*
                      * Ejecución de la consulta preparada.
@@ -147,16 +142,16 @@
                     /*
                      * Mostrado del select.
                      */
-                    $aQuery = $oResultadoConsulta->fetchObject();
+                    $aDepartamento = $oResultadoConsulta->fetchObject();
                     echo '<table class="showSelect">';
                     columnsNameRow($oResultadoConsulta);
-                    while($aQuery){
+                    while($aDepartamento){
                         echo '<tr>';
-                        foreach ($aQuery as $valor) {
+                        foreach ($aDepartamento as $valor) {
                             echo "<td>$valor</td>";
                         }
                         echo '</tr>';
-                        $aQuery = $oResultadoConsulta->fetchObject();
+                        $aDepartamento = $oResultadoConsulta->fetchObject();
                     }
                     echo '</table>';
                     

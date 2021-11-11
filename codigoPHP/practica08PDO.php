@@ -8,28 +8,6 @@
         <meta charset="UTF-8">
         <title>IMG - DWES 4-8 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            form{
-                width: 100%;
-                max-width: 500px;
-            }
-            table{
-                margin: auto;
-            }
-
-            span{
-                font-size: small;
-                color: red;
-            }
-
-            .showVariables{
-                border-collapse: collapse;
-            }
-            .showVariables td{
-                border: 1px solid gainsboro;
-                padding: 5px;
-            }
-        </style>
     </head>
     <body>
         <main>
@@ -67,16 +45,45 @@
                 
                 // Ejecución del select.
                 $oConsulta->execute();
-
+                
                 /*
-                 * Mientras recoja un departamento, lo añade al xml.
+                 * Creación del XML que formatee la salida con indentación y espacios.
+                 */
+                $oDoc = new DOMDocument();
+                $oDoc -> formatOutput = true;
+                
+                $oElemDepartamentos = $oDoc->createElement("departamentos");
+                $nodoDepartamentos = $oDoc->appendChild($oElemDepartamentos);
+                
+                /*
+                 * Recogida de información y escritura del archivo.
                  */
                 $oDepartamento = $oConsulta->fetchObject();
+                
                 while($oDepartamento){
+                    // Creación del elemento departamento.
+                    $oElemDepartamento = $oDoc->createElement("departamento");
+                    $nodoDepartamentos->appendChild($oElemDepartamento);
                     
+                    // Creación y añadido de la información sobre el departamento.
+                    $oElemCodigo = $oDoc->createElement('codDepartamento', $oDepartamento->codDepartamento);
+                    $oElemDepartamento->appendChild($oElemCodigo);
+                    
+                    $oElemCodigo = $oDoc->createElement('descDepartamento', $oDepartamento->descDepartamento);
+                    $oElemDepartamento->appendChild($oElemCodigo);
+                    
+                    $oElemCodigo = $oDoc->createElement('fechaBaja', $oDepartamento->fechaBaja);
+                    $oElemDepartamento->appendChild($oElemCodigo);
+                    
+                    $oElemCodigo = $oDoc->createElement('volumenNegocio', $oDepartamento->volumenNegocio);
+                    $oElemDepartamento->appendChild($oElemCodigo);
                     
                     $oDepartamento = $oConsulta->fetchObject();
                 }
+                
+                // Guardado del archivo.
+                echo $oDoc->save('../tmp/prueba.xml').' bytes escritos';
+                
 
                 /*
                  * Si todo ha salido bien, commitea cambios.
