@@ -1,4 +1,12 @@
 <?php
+/*
+ * @author Sasha
+ * Fecha de creación: 11/11/2021
+ * Fecha de modificación: 11/11/2021
+ * 
+ * Permite descargar el archivo tablaDepartamento.xml situado en tmp.
+ */
+
 $file_url = '../tmp/tablaDepartamento.xml';
 
 /*

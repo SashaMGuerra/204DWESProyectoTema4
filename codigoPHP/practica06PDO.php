@@ -65,7 +65,7 @@
                 // Consulta preparada.
                 $oConsulta = $oDB->prepare(<<<QUERY
                         INSERT INTO Departamento
-                        VALUES (:codDep, :descDep, null, :volNeg);
+                        VALUES (:codDepartamento, :descDepartamento, null, :volumenNegocio);
                 QUERY);
 
                 // Comienzo de la transacción.
@@ -79,9 +79,9 @@
                      * Modificación de los parámetros por cada departamento.
                      */
                     $aParametros = [
-                        ':codDep' => $aDepartamento['codDepartamento'],
-                        ':descDep' => $aDepartamento['descDepartamento'],
-                        ':volNeg' => $aDepartamento['volumenNegocio']
+                        ':codDepartamento' => $aDepartamento['codDepartamento'],
+                        ':descDepartamento' => $aDepartamento['descDepartamento'],
+                        ':volumenNegocio' => $aDepartamento['volumenNegocio']
                     ];
 
                     $oConsulta->execute($aParametros);

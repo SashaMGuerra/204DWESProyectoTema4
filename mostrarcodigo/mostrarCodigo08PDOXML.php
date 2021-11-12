@@ -15,16 +15,16 @@
          * @author Isabel Martínez Guerra
          * Fecha: 10/11/2021
          * 
-         * Mostrado de la práctica 08.
+         * Mostrado de la práctica 08 para XML.
          */
         
-        highlight_file('../codigoPHP/practica08PDO.php');
+        highlight_file('../codigoPHP/practica08PDOXML.php');
         
         ?>
         
         <h2>PHP de descarga del archivo</h2>
         <?php
-        highlight_file('../codigoPHP/practica08PDOdescargarArchivo.php');
+        highlight_file('../codigoPHP/practica08PDOdescargarArchivoXML.php');
         ?>
     </body>
 </html>

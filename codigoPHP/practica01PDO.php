@@ -45,7 +45,7 @@
 
             // Establecimiento de la conexión.
             $oPDO = new PDO(HOST, USER, PASSWORD);
-            $oPDO->setAttribute(PDO_ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $oPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Recorrido y mostrado de los atributos de la conexión.
             echo '<table>';

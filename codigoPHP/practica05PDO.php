@@ -66,7 +66,7 @@
                 // Query de inserción.
                 $sSentencia = <<<QUERY
                         INSERT INTO Departamento VALUES
-                        (:codDep, :descDep, null, :volNeg);
+                        (:codDepartamento, :descDepartamento, null, :volumenNegocio);
                 QUERY;
 
                 // Conexión con la base de datos.
@@ -86,9 +86,9 @@
                  */
                 foreach ($aDepartamentos as $aDepartamento) {
                     $aParametros = [
-                        ':codDep' => $aDepartamento['codDepartamento'],
-                        ':descDep' => $aDepartamento['descDepartamento'],
-                        ':volNeg' => $aDepartamento['volumenNegocio']
+                        ':codDepartamento' => $aDepartamento['codDepartamento'],
+                        ':descDepartamento' => $aDepartamento['descDepartamento'],
+                        ':volumenNegocio' => $aDepartamento['volumenNegocio']
                     ];
 
                     $oConsulta->execute($aParametros);

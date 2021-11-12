@@ -1,11 +1,7 @@
 2 - Cursor : Consulta preparada
 3 a 6 - MySQLi
-7 y 8 - Mejorar cabecera.
-            Dónde se escriben/descargan los archivos.
-            Por qué transacción.
-        Log de errores.
+7 y 8 - Log de errores.
         En JSON
-7 - sin item(0) ni nodeValue
-8 - Borrar transacción.
+7 - sin item(0) ni nodeValue : no deja.
 
 Mejorar los nombres de los parámetros.

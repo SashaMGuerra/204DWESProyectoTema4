@@ -14,10 +14,10 @@
          * @author Isabel Martínez Guerra
          * Fecha: 11/11/2021
          * 
-         * Mostrado de la práctica 07.
+         * Mostrado de la práctica 07 para XML.
          */
         
-        highlight_file('../codigoPHP/practica07PDO.php');
+        highlight_file('../codigoPHP/practica07PDOXML.php');
         
         ?>
     </body>

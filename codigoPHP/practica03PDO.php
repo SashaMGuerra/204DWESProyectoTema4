@@ -138,7 +138,7 @@
                     // Query de inserción.
                     $sSentencia = <<<QUERY
                             INSERT INTO Departamento VALUES
-                            (:codDep, :descDep, null, :volNeg);
+                            (:codDepartamento, :descDepartamento, null, :volumenNegocio);
                     QUERY;
                     
                     // Consulta preparada.
@@ -148,9 +148,9 @@
                      * Array con la información que sustituirá los parámetros.
                      */
                     $aParametros = [
-                        ':codDep' => $aFormulario['codDepartamento'],
-                        ':descDep' => $aFormulario['descDepartamento'],
-                        ':volNeg' => $aFormulario['volumenNegocio']
+                        ':codDepartamento' => $aFormulario['codDepartamento'],
+                        ':descDepartamento' => $aFormulario['descDepartamento'],
+                        ':volumenNegocio' => $aFormulario['volumenNegocio']
                     ];
                             
                     /*
