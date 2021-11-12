@@ -12,7 +12,7 @@
 // Desarrollo - sauces.
 define('HOST', 'daw204.sauces.local');
 define('USER', 'User204DWESProyectoTema4');
-define('PASSWORD', 'P@ssw0rd');
+define('PASSWORD', 'paso');
 define('DB', 'DB204DWESProyectoTema4');
 
 /*

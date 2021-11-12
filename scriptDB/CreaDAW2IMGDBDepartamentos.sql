@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS Departamento(
 ) engine=innodb;
 
 /* Creación del usuario */
-CREATE USER IF NOT EXISTS 'User204DWESProyectoTema4'@'%' IDENTIFIED BY 'P@ssw0rd';
+CREATE USER IF NOT EXISTS 'User204DWESProyectoTema4'@'%' IDENTIFIED BY 'paso';
 GRANT ALL ON DB204DWESProyectoTema4.* TO 'User204DWESProyectoTema4'@'%';
