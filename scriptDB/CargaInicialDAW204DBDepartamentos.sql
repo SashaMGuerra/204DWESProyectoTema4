@@ -1,5 +1,5 @@
 /* Inserción en tablas */
-USE DAW204DBDepartamentos;
+USE DB204DWESProyectoTema4;
 
 INSERT INTO Departamento VALUES
 ('VEN', 'Ventas', null, 250.51),

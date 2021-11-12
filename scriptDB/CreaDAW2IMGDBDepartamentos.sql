@@ -1,7 +1,7 @@
 /* Creación de la base de datos */
-CREATE DATABASE IF NOT EXISTS DAW204DBDepartamentos;
+CREATE DATABASE IF NOT EXISTS DB204DWESProyectoTema4;
 
-USE DAW204DBDepartamentos;
+USE DB204DWESProyectoTema4;
 
 /* Creación de las tablas */
 CREATE TABLE IF NOT EXISTS Departamento(
@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS Departamento(
 ) engine=innodb;
 
 /* Creación del usuario */
-CREATE USER IF NOT EXISTS 'usuarioDAW204DBDepartamentos'@'%' IDENTIFIED BY 'P@ssw0rd';
-GRANT ALL ON DAW204DBDepartamentos.* TO 'usuarioDAW204DBDepartamentos'@'%';
+CREATE USER IF NOT EXISTS 'User204DWESProyectoTema4'@'%' IDENTIFIED BY 'P@ssw0rd';
+GRANT ALL ON DB204DWESProyectoTema4.* TO 'User204DWESProyectoTema4'@'%';

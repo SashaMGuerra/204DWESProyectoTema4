@@ -1,5 +1,5 @@
 /* Eliminación de la base de datos */
-DROP DATABASE DAW204DBDepartamentos;
+DROP DATABASE DB204DWESProyectoTema4;
 
 /* Eliminación del usuario */
-DROP USER 'usuarioDAW204DBDepartamentos'@'%';
+DROP USER 'User204DWESProyectoTema4'@'%';
