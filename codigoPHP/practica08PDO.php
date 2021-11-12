@@ -99,7 +99,7 @@
                 $oDB->commit();
                 
                 ?>
-                <button><a href="practica08PDOdescargarArchivo.php">Descárgame :)</a></button>
+                <button><a href="practica08PDOdescargarArchivo.php">Descárgame</a></button>
                 <?php
                 
             } catch (PDOException $exception) {
