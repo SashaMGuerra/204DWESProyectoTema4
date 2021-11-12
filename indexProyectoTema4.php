@@ -42,8 +42,8 @@
                     <td>3. Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores.</td>
                     <td><a href="codigoPHP/practica03PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo03PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
-                    <td></td>
-                    <td></td>
+                    <td><a href="codigoPHP/practica03MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo03MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
                     <td>4. Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos).</td>
