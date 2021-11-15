@@ -3,7 +3,7 @@
     Autor: Isabel Martínez Guerra
     Fecha: 02/11/2021
 -->
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>IMG - Tema 4</title>
@@ -25,35 +25,35 @@
                     <th colspan="2">MySQLi</th>
                 </tr>
                 <tr>
-                    <td>1. Conexión a la base de datos con la cuenta usuario y tratamiento de errores.</td>
+                    <td class="enunciado">1. Conexión a la base de datos con la cuenta usuario y tratamiento de errores.</td>
                     <td><a href="codigoPHP/practica01PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo01PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td><a href="codigoPHP/practica01MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo01MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
-                    <td>2. Mostrar el contenido de la tabla Departamento y el número de registros.</td>
+                    <td class="enunciado">2. Mostrar el contenido de la tabla Departamento y el número de registros.</td>
                     <td><a href="codigoPHP/practica02PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo02PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td><a href="codigoPHP/practica02MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo02MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
-                    <td>3. Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores.</td>
+                    <td class="enunciado">3. Formulario para añadir un departamento a la tabla Departamento con validación de entrada y control de errores.</td>
                     <td><a href="codigoPHP/practica03PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo03PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td><a href="codigoPHP/practica03MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo03MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
-                    <td>4. Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos).</td>
+                    <td class="enunciado">4. Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos).</td>
                     <td><a href="codigoPHP/practica04PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo04PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>5. Página web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno.</td>
+                    <td class="enunciado">5. Página web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno.</td>
                     <td><a href="codigoPHP/practica05PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo05PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td></td>
@@ -72,11 +72,17 @@
                     <th colspan="2">JSON</th>
                 </tr>
                 <tr>
-                    <td rowspan="2">7. Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de la base de datos (IMPORTAR).</td>
+                    <td class="enunciado" rowspan="4">7. Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de la base de datos (IMPORTAR).</td>
+                    <td class="tipo" colspan="4">A tmp</td>
+                </tr>
+                <tr>
                     <td><a href="codigoPHP/practica07PDOXML.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo07PDOXML.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td><a href="codigoPHP/practica07PDOJSON.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo07PDOJSON.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
+                </tr>
+                <tr>
+                    <td class="tipo" colspan="4">Subida de archivo</td>
                 </tr>
                 <tr>
                     <td><a href="codigoPHP/practica07PDOXMLImport.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
@@ -85,7 +91,7 @@
                     <td><a href="mostrarcodigo/mostrarCodigo07PDOJSONImport.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
-                    <td>8. Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml (COPIA DE SEGURIDAD/EXPORTAR).</td>
+                    <td class="enunciado">8. Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml (COPIA DE SEGURIDAD/EXPORTAR).</td>
                     <td><a href="codigoPHP/practica08PDOXML.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo08PDOXML.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td><a href="codigoPHP/practica08PDOJSON.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
@@ -94,7 +100,7 @@
             </table>
         </main>
         <footer>
-            <div>Modificado el 12/11/2021 - Mª Isabel Martínez Guerra</div>
+            <div>Modificado el 15/11/2021 - Mª Isabel Martínez Guerra</div>
             <div><a href="https://github.com/SashaMGuerra/proyectoTema4"><img id="github" src="webroot/media/img/github_logo_white.png" alt="github logo"/></a></div>
         </footer>
     </body>

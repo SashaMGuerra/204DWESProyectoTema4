@@ -1,10 +1,8 @@
 2 - Cursor : Consulta preparada
-4 - Al buscar, que no se borre el formulario.
-    Cuando se entra en la página, carga todos los registros.
+4 - Cuando se entra en la página, carga todos los registros.
 4 a 6 - MySQLi
 7 y 8 - Log de errores.        
 7 - sin item(0) ni nodeValue.
-    Subir desde local - llevar a tmp y después borrar.
 
 8 JSON - Con fetch directamente para no tener que crear un array.
             Con DOMDocument.

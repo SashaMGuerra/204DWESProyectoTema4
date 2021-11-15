@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - DWES 4-7 PDO XML Importación</title>
+        <title>IMG - DWES 4-7 PDO JSON Importación</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             fieldset{
@@ -27,7 +27,7 @@
              * @author Sasha
              * 
              * Requiere un documento al usuario con información de departamentos
-             * en xml y los añade a la tabla Departamento (importar).
+             * en JSON y los añade a la tabla Departamento (importar).
              */
 
             // Constantes para la conexión con la base de datos.
@@ -37,7 +37,6 @@
             include '../core/210322ValidacionFormularios.php';
             // Constantes para el parámetro "obligatorio".
             require_once '../config/configApp.php';
-
 
 
             /**
@@ -133,38 +132,28 @@
                     $oConsulta = $oDB->prepare($sSentencia);
 
                     /*
-                     * Creación del lector, que formatee la salida con indentación y espacios.
+                     * Carga del archivo.
                      */
-                    $oDoc = new DOMDocument();
-                    $oDoc->formatOutput = true;
+                    $sJsonDepartamentos = file_get_contents($sArchivoTarget);
 
-                    // Carga del archivo.
-                    $oDoc->load($sArchivoTarget);
+                    // Decodificación del string en JSON a un array de arrays.
+                    $aDepartamentos = json_decode($sJsonDepartamentos);
 
-                    $nodeDepartamento = $oDoc->getElementsByTagName('departamento');
+                    /*
+                     * Por cada departamento, bind de los parámetros y ejecución
+                     * del sql.
+                     */
+                    foreach ($aDepartamentos as $oDepartamento) {
+                        $oConsulta->bindParam(':codDepartamento', $oDepartamento->codDepartamento);
+                        $oConsulta->bindParam(':descDepartamento', $oDepartamento->descDepartamento);
+                        $oConsulta->bindParam(':fechaBaja', $oDepartamento->fechaBaja);
+                        $oConsulta->bindParam(':volumenNegocio', $oDepartamento->volumenNegocio);
 
-                    foreach ($nodeDepartamento as $departamento) {
-                        $codDep = $departamento->getElementsByTagName('codDepartamento')->item(0)->nodeValue;
-                        $descDep = $departamento->getElementsByTagName('descDepartamento')->item(0)->nodeValue;
-                        /*
-                         * Fecha baja puede tener valor null. Cuando lo carga del archivo,
-                         * lo hace como una cadena vacía.
-                         * Comprueba si es una cadena vacía, y si lo es, indica que
-                         * es null.
-                         */
-                        $fechaBaja = ($departamento->getElementsByTagName('fechaBaja')->item(0)->nodeValue) == '' ? null : $fechaBaja;
-                        $volNeg = $departamento->getElementsByTagName('volumenNegocio')->item(0)->nodeValue;
-
-                        $oConsulta->bindParam(':codDepartamento', $codDep);
-                        $oConsulta->bindParam(':descDepartamento', $descDep);
-                        $oConsulta->bindParam(':fechaBaja', $fechaBaja);
-                        $oConsulta->bindParam(':volumenNegocio', $volNeg);
-
-                        // Ejecución del select.
                         $oConsulta->execute();
                     }
 
                     echo '<div>Se han introducido los datos con éxito.</div>';
+                    
                 } catch (PDOException $exception) {
                     /*
                      * Mostrado del código de error y su mensaje.
@@ -206,9 +195,9 @@
                     <br>
                     <input type="submit" name="submit" id="submit">
                 </form>
-    <?php
-}
-?>
+                <?php
+            }
+            ?>
         </main>
     </body>
 </html>
