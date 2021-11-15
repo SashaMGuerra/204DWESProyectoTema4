@@ -14,7 +14,7 @@
         <header>
             <h1>Desarrollo Web en Entorno Servidor</h1>
             <h2>Proyecto Tema 4</h2>
-            <a href="config/configDBPDO.php">Fichero de configuración</a>
+            <a href="mostrarcodigo/mostrarCodigoConfig.php">Fichero de configuración</a>
         </header>
         <main>
             <table>
@@ -72,11 +72,17 @@
                     <th colspan="2">JSON</th>
                 </tr>
                 <tr>
-                    <td>7. Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de la base de datos (IMPORTAR).</td>
+                    <td rowspan="2">7. Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla Departamento de la base de datos (IMPORTAR).</td>
                     <td><a href="codigoPHP/practica07PDOXML.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo07PDOXML.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td><a href="codigoPHP/practica07PDOJSON.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo07PDOJSON.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
+                </tr>
+                <tr>
+                    <td><a href="codigoPHP/practica07PDOXMLImport.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo07PDOXMLImport.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
+                    <td><a href="codigoPHP/practica07PDOJSONImport.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo07PDOJSONImport.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
                     <td>8. Página web que toma datos (código y descripción) de la tabla Departamento y guarda en un fichero departamento.xml (COPIA DE SEGURIDAD/EXPORTAR).</td>

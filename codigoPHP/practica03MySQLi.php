@@ -49,11 +49,8 @@
             require_once '../config/configDBMySQLi.php';
             
             
-            /*
-             * Definición de constantes para el parámetro "obligatorio"
-             */
-            define("OBLIGATORIO", 1);
-            define("OPCIONAL", 0);
+            // Constantes para el parámetro "obligatorio".
+            require_once '../config/configApp.php';
 
             /*
              * Inicialización del array de elementos del formulario.
