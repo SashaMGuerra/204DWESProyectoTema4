@@ -138,33 +138,46 @@
                     $oDoc = new DOMDocument();
                     $oDoc->formatOutput = true;
 
-                    // Carga del archivo.
-                    $oDoc->load($sArchivoTarget);
+                    /* 
+                     * Si es capaz de cargar el archivo, introduce los datos
+                     * en la base de datos.
+                     * 
+                     * Si se introduce un archivo ilegible, muestra una advertencia.
+                     * Para evitarlo, se deshabilitan los errores libxml.
+                     */
+                    libxml_use_internal_errors(true);
+                    if ($oDoc->load($sArchivoTarget)) {
+                        $nodeDepartamento = $oDoc->getElementsByTagName('departamento');
 
-                    $nodeDepartamento = $oDoc->getElementsByTagName('departamento');
+                        foreach ($nodeDepartamento as $departamento) {
+                            $codDep = $departamento->getElementsByTagName('codDepartamento')->item(0)->nodeValue;
+                            $descDep = $departamento->getElementsByTagName('descDepartamento')->item(0)->nodeValue;
+                            /*
+                             * Fecha baja puede tener valor null. Cuando lo carga del archivo,
+                             * lo hace como una cadena vacía.
+                             * Comprueba si es una cadena vacía, y si lo es, indica que
+                             * es null.
+                             */
+                            $fechaBaja = ($departamento->getElementsByTagName('fechaBaja')->item(0)->nodeValue) == '' ? null : $fechaBaja;
+                            $volNeg = $departamento->getElementsByTagName('volumenNegocio')->item(0)->nodeValue;
 
-                    foreach ($nodeDepartamento as $departamento) {
-                        $codDep = $departamento->getElementsByTagName('codDepartamento')->item(0)->nodeValue;
-                        $descDep = $departamento->getElementsByTagName('descDepartamento')->item(0)->nodeValue;
-                        /*
-                         * Fecha baja puede tener valor null. Cuando lo carga del archivo,
-                         * lo hace como una cadena vacía.
-                         * Comprueba si es una cadena vacía, y si lo es, indica que
-                         * es null.
-                         */
-                        $fechaBaja = ($departamento->getElementsByTagName('fechaBaja')->item(0)->nodeValue) == '' ? null : $fechaBaja;
-                        $volNeg = $departamento->getElementsByTagName('volumenNegocio')->item(0)->nodeValue;
+                            $oConsulta->bindParam(':codDepartamento', $codDep);
+                            $oConsulta->bindParam(':descDepartamento', $descDep);
+                            $oConsulta->bindParam(':fechaBaja', $fechaBaja);
+                            $oConsulta->bindParam(':volumenNegocio', $volNeg);
 
-                        $oConsulta->bindParam(':codDepartamento', $codDep);
-                        $oConsulta->bindParam(':descDepartamento', $descDep);
-                        $oConsulta->bindParam(':fechaBaja', $fechaBaja);
-                        $oConsulta->bindParam(':volumenNegocio', $volNeg);
+                            // Ejecución del select.
+                            $oConsulta->execute();
+                        }
 
-                        // Ejecución del select.
-                        $oConsulta->execute();
+                        echo '<div>Se han introducido los datos con éxito.</div>';
                     }
-
-                    echo '<div>Se han introducido los datos con éxito.</div>';
+                    /*
+                     * Si no ha sido capaz de cargar los datos, lo indica.
+                     */
+                    else{
+                        echo '<div>No se han podido introducir los datos.</div>';
+                    }
                 } catch (PDOException $exception) {
                     /*
                      * Mostrado del código de error y su mensaje.
@@ -201,7 +214,7 @@
                 <h2>Elija el archivo con que desea importar.</h2>
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                     <fieldset>
-                        <input type="file" id="fileUpload" name="fileUpload">
+                        <input type="file" id="fileUpload" name="fileUpload" accept=".xml">
                     </fieldset>
                     <br>
                     <input type="submit" name="submit" id="submit">

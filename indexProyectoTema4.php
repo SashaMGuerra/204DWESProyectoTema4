@@ -60,7 +60,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>6. Página web que cargue registros en la tabla Departamento desde un array departamentosnuevos utilizando una consulta preparada.</td>
+                    <td class="enunciado">6. Página web que cargue registros en la tabla Departamento desde un array departamentosnuevos utilizando una consulta preparada.</td>
                     <td><a href="codigoPHP/practica06PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo06PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                     <td></td>

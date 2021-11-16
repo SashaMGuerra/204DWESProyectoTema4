@@ -3,6 +3,7 @@
 4 a 6 - MySQLi
 7 y 8 - Log de errores.        
 7 - sin item(0) ni nodeValue.
+    error al introducir un formato de archivo incorrecto.
 
 8 JSON - Con fetch directamente para no tener que crear un array.
             Con DOMDocument.

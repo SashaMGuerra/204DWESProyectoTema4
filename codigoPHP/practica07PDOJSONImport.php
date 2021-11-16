@@ -113,62 +113,69 @@
                 move_uploaded_file($_FILES['fileUpload']['tmp_name'], $sArchivoTarget);
 
                 /*
-                 * Inserción en la base de datos.
+                 * Carga del archivo.
                  */
-                try {
-                    // Query de inserción.
-                    $sSentencia = <<<QUERY
+                $sJsonDepartamentos = file_get_contents($sArchivoTarget);
+
+                // Decodificación del string en JSON a un array de arrays.
+                $aDepartamentos = json_decode($sJsonDepartamentos);
+
+                if (!is_null($aDepartamentos)) {
+
+                    /*
+                     * Inserción en la base de datos.
+                     */
+                    try {
+                        // Query de inserción.
+                        $sSentencia = <<<QUERY
                                INSERT INTO Departamento
                                VALUES (:codDepartamento, :descDepartamento, :fechaBaja, :volumenNegocio);
                        QUERY;
 
-                    // Conexión con la base de datos.
-                    $oDB = new PDO(HOST, USER, PASSWORD);
+                        // Conexión con la base de datos.
+                        $oDB = new PDO(HOST, USER, PASSWORD);
 
-                    // Mostrado de las excepciones.
-                    $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        // Mostrado de las excepciones.
+                        $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    // Consulta preparada.
-                    $oConsulta = $oDB->prepare($sSentencia);
+                        // Consulta preparada.
+                        $oConsulta = $oDB->prepare($sSentencia);
 
-                    /*
-                     * Carga del archivo.
-                     */
-                    $sJsonDepartamentos = file_get_contents($sArchivoTarget);
 
-                    // Decodificación del string en JSON a un array de arrays.
-                    $aDepartamentos = json_decode($sJsonDepartamentos);
 
-                    /*
-                     * Por cada departamento, bind de los parámetros y ejecución
-                     * del sql.
-                     */
-                    foreach ($aDepartamentos as $oDepartamento) {
-                        $oConsulta->bindParam(':codDepartamento', $oDepartamento->codDepartamento);
-                        $oConsulta->bindParam(':descDepartamento', $oDepartamento->descDepartamento);
-                        $oConsulta->bindParam(':fechaBaja', $oDepartamento->fechaBaja);
-                        $oConsulta->bindParam(':volumenNegocio', $oDepartamento->volumenNegocio);
+                        /*
+                         * Por cada departamento, bind de los parámetros y ejecución
+                         * del sql.
+                         */
+                        foreach ($aDepartamentos as $oDepartamento) {
+                            $oConsulta->bindParam(':codDepartamento', $oDepartamento->codDepartamento);
+                            $oConsulta->bindParam(':descDepartamento', $oDepartamento->descDepartamento);
+                            $oConsulta->bindParam(':fechaBaja', $oDepartamento->fechaBaja);
+                            $oConsulta->bindParam(':volumenNegocio', $oDepartamento->volumenNegocio);
 
-                        $oConsulta->execute();
+                            $oConsulta->execute();
+                        }
+
+                        echo '<div>Se han introducido los datos con éxito.</div>';
+                    } catch (PDOException $exception) {
+                        /*
+                         * Mostrado del código de error y su mensaje.
+                         */
+                        echo '<div>Se han encontrado errores:</div><ul>';
+                        echo '<li>' . $exception->getCode() . ' : ' . $exception->getMessage() . '</li>';
+                        echo '</ul>';
+                    } finally {
+                        unset($oDB);
                     }
 
-                    echo '<div>Se han introducido los datos con éxito.</div>';
-                    
-                } catch (PDOException $exception) {
                     /*
-                     * Mostrado del código de error y su mensaje.
+                     * Eliminación del fichero recién creado.
                      */
-                    echo '<div>Se han encontrado errores:</div><ul>';
-                    echo '<li>' . $exception->getCode() . ' : ' . $exception->getMessage() . '</li>';
-                    echo '</ul>';
-                } finally {
-                    unset($oDB);
+                    unlink($sArchivoTarget);
                 }
-
-                /*
-                 * Eliminación del fichero recién creado.
-                 */
-                unlink($sArchivoTarget);
+                else{
+                    echo '<div>No se han podido introducir los datos.</div>';
+                }
             }
 
             /*
@@ -190,14 +197,14 @@
                 <h2>Elija el archivo con que desea importar.</h2>
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
                     <fieldset>
-                        <input type="file" id="fileUpload" name="fileUpload">
+                        <input type="file" id="fileUpload" name="fileUpload" accept=".json">
                     </fieldset>
                     <br>
                     <input type="submit" name="submit" id="submit">
                 </form>
-                <?php
-            }
-            ?>
+    <?php
+}
+?>
         </main>
     </body>
 </html>
