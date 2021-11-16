@@ -49,15 +49,15 @@
                     <td class="enunciado">4. Formulario de búsqueda de departamentos por descripción (por una parte del campo DescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos).</td>
                     <td><a href="codigoPHP/practica04PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo04PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
-                    <td></td>
-                    <td></td>
+                    <td><a href="codigoPHP/practica04MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo04MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
                     <td class="enunciado">5. Página web que añade tres registros a nuestra tabla Departamento utilizando tres instrucciones insert y una transacción, de tal forma que se añadan los tres registros o no se añada ninguno.</td>
                     <td><a href="codigoPHP/practica05PDO.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo05PDO.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
-                    <td></td>
-                    <td></td>
+                    <td><a href="codigoPHP/practica05MySQLi.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                    <td><a href="mostrarcodigo/mostrarCodigo05MySQLi.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
                 <tr>
                     <td class="enunciado">6. Página web que cargue registros en la tabla Departamento desde un array departamentosnuevos utilizando una consulta preparada.</td>

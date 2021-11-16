@@ -32,6 +32,7 @@
     </head>
     <body>
         <main>
+            <h1>Introducción de tres departamentos.</h1>
             <?php
             /*
              * Fecha de creación: 08/10/2021
@@ -100,21 +101,8 @@
                  */
                 $oDB->commit();
 
-                /*
-                * Mostrado del contenido recogido por el formulario
-                * en una tabla.
-                */
-               echo "<h2>Registros realizados:</h2>";
-               echo '<table class="showVariables">';
-               foreach ($aDepartamentos as $aDepartamento) {
-                   echo '<tr>';
-                   echo "<td>".$aDepartamento['codDepartamento']."</td>";
-                   echo "<td>".$aDepartamento['descDepartamento']."</td>";
-                   echo "<td>".$aDepartamento['volumenNegocio']."</td>";
-                   echo '</tr>';
-               }
-               echo '</table>';
-
+                echo '<div>Los datos se han introducido con éxito.</div>';
+                
             }catch(PDOException $exception){
                 /*
                  * Si ha habido algún error, vuelve atrás.
