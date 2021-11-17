@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!--
     Autor: Isabel Martínez Guerra
-    Fecha: 08/11/2021
+    Fecha: 12/11/2021
 -->
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - DWES 4-3 PDO</title>
+        <title>IMG - DWES 4-3 MySQLi</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             .obligatorio:after{
@@ -34,8 +34,8 @@
         <main>
             <?php
             /*
-             * Fecha de creación: 08/10/2021
-             * Fecha de última modificación: 10/10/2021
+             * Fecha de creación: 12/10/2021
+             * Fecha de última modificación: 12/10/2021
              * @version 1.0
              * @author Sasha
              * 
@@ -46,7 +46,8 @@
             include '../core/210322ValidacionFormularios.php';
             
             // Constantes para la conexión con la base de datos.
-            require_once '../config/configDBPDO.php';
+            require_once '../config/configDBMySQLi.php';
+            
             
             // Constantes para el parámetro "obligatorio".
             require_once '../config/configApp.php';
@@ -125,34 +126,34 @@
                  * Inserción en la base de datos.
                  */
                 try{
-                    // Conexión con la base de datos.
-                    $oDB = new PDO(HOST, USER, PASSWORD);
-                    
-                    // Mostrado de las excepciones.
-                    $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    
                     // Query de inserción.
                     $sSentencia = <<<QUERY
                             INSERT INTO Departamento VALUES
-                            (:codDepartamento, :descDepartamento, null, :volumenNegocio);
+                            (?, ?, null, ?);
                     QUERY;
                     
-                    // Consulta preparada.
+                    // Conexión con la base de datos.
+                    $oDB = new mysqli();
+                    $oDB->connect(HOST, USER, PASSWORD, DB);
+                    
+                    /*
+                     * Consulta preparada.
+                     * Devuelve un mysqli statement.
+                     */
                     $oConsulta = $oDB->prepare($sSentencia);
                     
                     /*
-                     * Array con la información que sustituirá los parámetros.
+                     * Sustitución de los parámetros.
+                     * En el primer parámetro se indican los tipos: string, string y double (float).
+                     * En los siguientes parámetros, se le da valor a las ?
                      */
-                    $aParametros = [
-                        ':codDepartamento' => $aFormulario['codDepartamento'],
-                        ':descDepartamento' => $aFormulario['descDepartamento'],
-                        ':volumenNegocio' => $aFormulario['volumenNegocio']
-                    ];
-                            
+                    $oConsulta->bind_param('ssd', $aFormulario['codDepartamento'], $aFormulario['descDepartamento'], $aFormulario['volumenNegocio']);
+                         
                     /*
                      * Ejecución de la consulta.
                      */
-                    $oConsulta->execute($aParametros);
+                    $oConsulta->execute();
+                    
                     
                     /*
                     * Mostrado del contenido recogido por el formulario
@@ -167,7 +168,7 @@
                    }
                    echo '</table>';
                     
-                }catch(PDOException $exception){
+                }catch(Exception $exception){
                     /*
                      * Mostrado del código de error y su mensaje.
                      */
@@ -176,7 +177,7 @@
                     echo '</ul>';
                 }
                 finally{
-                    unset($oDB);
+                    $oDB->close();
                 }
                 
                 
@@ -248,36 +249,35 @@
                     * Comprobación de existencia en la base de datos.
                     */
                    try{
-                       // Conexión con la base de datos.
-                       $oDB = new PDO(HOST, USER, PASSWORD);
+                        // Query de selección.
+                        $sConsulta = <<<QUERY
+                                SELECT codDepartamento FROM Departamento WHERE codDepartamento = '{$codDepartamento}';
+                        QUERY;
 
-                       // Mostrado de las excepciones.
-                       $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        // Conexión con la base de datos.
+                        $oDB = new mysqli();
+                        $oDB->connect(HOST, USER, PASSWORD, DB);
 
-                       // Query de selección.
-                       $sConsulta = <<<QUERY
-                               SELECT codDepartamento FROM Departamento WHERE codDepartamento = '{$codDepartamento}';
-                       QUERY;
+                        /*
+                         * Ejecución del query.
+                         * Devuelve un mysqli result o false.
+                         */
+                        $oResultado = $oDB->query($sConsulta);
 
-                       /*
-                        * Ejecución del query.
-                        */
-                       $oResultado = $oDB->query($sConsulta);
+                        if($oResultado->num_rows>0){
+                            $errorCode = 'No puede haber dos departamentos con el mismo código.';
+                        }
 
-                       if($oResultado->rowCount()>0){
-                           $errorCode = 'No puede haber dos departamentos con el mismo código.';
-                       }
-
-                   }catch(PDOException $exception){
-                       /*
-                        * Mostrado del código de error y su mensaje.
-                        */
-                       echo '<div>Se han encontrado errores en la validación:</div><ul>';
-                       echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
-                       echo '</ul>';
-                   }
-                   finally{
-                       unset($oDB);
+                    }catch(PDOException $exception){
+                        /*
+                         * Mostrado del código de error y su mensaje.
+                         */
+                        echo '<div>Se han encontrado errores en la validación:</div><ul>';
+                        echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+                        echo '</ul>';
+                    }
+                    finally{
+                        $oDB->close();
                    }
                 }
                 

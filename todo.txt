@@ -1,11 +1,8 @@
 2 - Cursor : Consulta preparada
-3 a 6 - MySQLi
-7 y 8 - Mejorar cabecera.
-            Dónde se escriben/descargan los archivos.
-            Por qué transacción.
-        Log de errores.
-        En JSON
-7 - sin item(0) ni nodeValue
-8 - Borrar transacción.
+4 - Cuando se entra en la página, carga todos los registros.
+6 - MySQLi
+7 y 8 - Log de errores.        
+7 - sin item(0) ni nodeValue.
 
-Mejorar los nombres de los parámetros.
+8 JSON - Con fetch directamente para no tener que crear un array.
+            Con DOMDocument.

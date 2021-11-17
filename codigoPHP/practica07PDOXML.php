@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>IMG - DWES 4-8 PDO</title>
+        <title>IMG - DWES 4-7 PDO XML</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -17,25 +17,26 @@
             <?php
             /*
              * Fecha de creación: 11/10/2021
-             * Fecha de última modificación: 11/10/2021
+             * Fecha de última modificación: 12/10/2021
              * @version 1.0
              * @author Sasha
              * 
-             * Toma datos de departamento.xml y los añade a la tabla Departamento
-             * (importar).
+             * Toma datos de tablaDepartamento.xml en la carpeta tmp  y los añade a
+             * la tabla Departamento (importar).
              */
 
             // Constantes para la conexión con la base de datos.
             require_once '../config/configDBPDO.php';
+            
+            $sSentencia = <<<QUERY
+                    INSERT INTO Departamento
+                    VALUES (:codDepartamento, :descDepartamento, :fechaBaja, :volumenNegocio);
+            QUERY;
 
             /**
              * Recogida de los datos de la tabla Departamento.
              */
             try {
-                $sSentencia = <<<QUERY
-                        INSERT INTO Departamento
-                        VALUES (:codDep, :descDep, :fechaBaja, :volNeg);
-                QUERY;
                 
                 // Conexión con la base de datos.
                 $oDB = new PDO(HOST, USER, PASSWORD);
@@ -45,9 +46,6 @@
                 
                 // Consulta preparada.
                 $oConsulta = $oDB->prepare($sSentencia);
-                
-                // Comienzo de la transacción.
-                $oDB->beginTransaction();
                 
                 /*
                  * Creación del lector, que formatee la salida con indentación y espacios.
@@ -72,27 +70,18 @@
                     $fechaBaja = ($departamento->getElementsByTagName('fechaBaja')->item(0)->nodeValue)==''?null:$fechaBaja;
                     $volNeg = $departamento->getElementsByTagName('volumenNegocio')->item(0)->nodeValue;
                    
-                    $oConsulta->bindParam(':codDep', $codDep);
-                    $oConsulta->bindParam(':descDep', $descDep);
+                    $oConsulta->bindParam(':codDepartamento', $codDep);
+                    $oConsulta->bindParam(':descDepartamento', $descDep);
                     $oConsulta->bindParam(':fechaBaja', $fechaBaja);
-                    $oConsulta->bindParam(':volNeg', $volNeg);
+                    $oConsulta->bindParam(':volumenNegocio', $volNeg);
                     
                     // Ejecución del select.
                     $oConsulta->execute();
                 }
-
-                /*
-                 * Si todo ha salido bien, commitea cambios.
-                 */
-                $oDB->commit();
                 
                 echo '<div>Se han introducido los datos con éxito.</div>';
                 
             } catch (PDOException $exception) {
-                /*
-                 * Si se han dado errores, hace rollback.
-                 */
-                $oDB->rollBack();
                 /*
                  * Mostrado del código de error y su mensaje.
                  */

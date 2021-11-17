@@ -486,8 +486,6 @@ class validacionFormularios {  //ELIMINA EL METODO VALIDATEDATE Y LO INCLUYE EN 
     }
     
     /**
-     * Función validarInputRadio
-     * 
      * Comprueba si se ha seleccionado alguna de las opciones en un elemento
      * de opciones múltiples (input radio, listas desplegables).
      * 

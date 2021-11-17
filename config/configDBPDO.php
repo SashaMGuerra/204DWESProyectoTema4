@@ -3,9 +3,7 @@
 /*
  * Autor: Isabel Martínez Guerra
  * Fecha: 05/11/2021
- */
-
-/*
+ * 
  * Constantes para la conexión con la base de datos PDO.
  */
 

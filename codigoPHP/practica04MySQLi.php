@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
     Autor: Isabel Martínez Guerra
-    Fecha: 08/11/2021
+    Fecha: 16/11/2021
 -->
 <html>
     <head>
@@ -16,12 +16,12 @@
             table{
                 margin: auto;
             }
-
+            
             span{
                 font-size: small;
                 color: red;
             }
-
+            
             .showSelect{
                 border-collapse: collapse;
             }
@@ -35,20 +35,21 @@
         <main>
             <?php
             /*
-             * Fecha de creación: 08/10/2021
-             * Fecha de última modificación: 10/10/2021
+             * Fecha de creación: 16/10/2021
+             * Fecha de última modificación: 16/10/2021
              * @version 1.0
              * @author Sasha
              * 
-             * Búsqueda y mostrado de departamentos según descripción.
+             * Búsqueda y mostrado de departamentos según descripción mediante
+             * MySQLi.
              */
 
             //Librería de validación.
             include '../core/210322ValidacionFormularios.php';
-
+            
             // Constantes para la conexión con la base de datos.
-            require_once '../config/configDBPDO.php';
-
+            require_once '../config/configDBMySQLi.php';
+            
             // Constantes para el parámetro "obligatorio".
             require_once '../config/configApp.php';
 
@@ -65,7 +66,7 @@
             $aErrores = [
                 'descDepartamento' => ''
             ];
-
+            
             /*
              * Formulario de búsqueda. Siempre se muestra, se haya enviado
              * o no la información.
@@ -92,8 +93,10 @@
             </form>
 
             <?php
+
             /*
-             * Si el formulario ha sido enviado, valida el campo y registra los errores.
+             * Confirmación si el formulario ha sido enviado.
+             * Si ha sido enviado, valida los campos y registra los errores.
              */
             if (isset($_REQUEST['submit'])) {
                 /*
@@ -101,12 +104,12 @@
                  * error (true). Si encuentra alguno se pone a false.
                  */
                 $bEntradaOK = true;
-
+                
                 /*
                  * Registro de errores. Valida todos los campos.
                  */
                 $aErrores['descDepartamento'] = validacionFormularios::comprobarAlfanumerico($_REQUEST['descDepartamento'], 255, 1, OPCIONAL);
-
+                
                 /*
                  * Recorrido del array de errores.
                  * Si existe alguno, cambia el manejador de errores a false
@@ -118,17 +121,17 @@
                         $bEntradaOK = false;
                     }
                 }
+                
             }
-
+            
             /*
              * Si el formulario no ha sido enviado, pone el manejador de errores
-             * a false para que no entre en el if tras envío correcto.
-             * 
+             * a false para poder mostrar el formulario.
              */
             else {
                 $bEntradaOK = false;
             }
-
+            
             /*
              * Si el formulario ha sido enviado y no ha tenido errores
              * muestra la información enviada.
@@ -138,57 +141,58 @@
                  * Recogida de la información enviada.
                  */
                 $aFormulario['descDepartamento'] = $_REQUEST['descDepartamento'];
-
+                
                 /*
                  * Inserción en la base de datos.
                  */
-                try {
-                    // Conexión con la base de datos.
-                    $oDB = new PDO(HOST, USER, PASSWORD);
-
-                    // Mostrado de las excepciones.
-                    $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+                try{
                     // Query de búsqueda.
                     $sConsulta = <<<QUERY
                         SELECT * FROM Departamento WHERE descDepartamento LIKE '%{$aFormulario['descDepartamento']}%';
                     QUERY;
-
+                        
+                    // Conexión con la base de datos.
+                    $oDB = new mysqli();
+                    $oDB->connect(HOST, USER, PASSWORD, DB);
+                    
                     /*
-                     * Ejecución de la consulta preparada.
+                     * Ejecución de la consulta.
+                     * Devuelve un mysqli_result.
                      */
-                    $oResultadoConsulta = $oDB->prepare($sConsulta);
-                    $oResultadoConsulta->execute();
+                    $oResultadoConsulta = $oDB->query($sConsulta);
                     
                     echo '<h2>Departamentos encontrados: </h2>';
                     /*
                      * Mostrado del select.
                      */
-                    $aDepartamento = $oResultadoConsulta->fetchObject();
+                    $aDepartamento = $oResultadoConsulta->fetch_object();
                     echo '<table class="showSelect">';
-                    while ($aDepartamento) {
+                    while($aDepartamento){
                         echo '<tr>';
                         echo "<td>$aDepartamento->codDepartamento</td>";
                         echo "<td>$aDepartamento->descDepartamento</td>";
                         echo "<td>$aDepartamento->fechaBaja</td>";
                         echo "<td>$aDepartamento->volumenNegocio</td>";
                         echo '</tr>';
-                        $aDepartamento = $oResultadoConsulta->fetchObject();
+                        $aDepartamento = $oResultadoConsulta->fetch_object();
                     }
                     echo '</table>';
-                } catch (PDOException $exception) {
+                    
+                }catch(PDOException $exception){
                     /*
                      * Mostrado del código de error y su mensaje.
                      */
                     echo '<div>Se han encontrado errores:</div><ul>';
-                    echo '<li>' . $exception->getCode() . ' : ' . $exception->getMessage() . '</li>';
+                    echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
                     echo '</ul>';
-                } finally {
-                    unset($oDB);
+                }
+                finally{
+                    $oDB->close();
                 }
             }
             ?>
-
         </main>
+
+
     </body>
 </html>

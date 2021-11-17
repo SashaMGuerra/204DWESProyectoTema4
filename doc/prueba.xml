@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<departamentos>
+  <departamento>
+    <codDepartamento>abc</codDepartamento>
+    <descDepartamento>abecedario</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>8.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>AIR</codDepartamento>
+    <descDepartamento>Departamento Aire</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>0.57</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>ALF</codDepartamento>
+    <descDepartamento>Departamento Alfa</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>4.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>AVA</codDepartamento>
+    <descDepartamento>Departamento Agua</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>57.98</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>COM</codDepartamento>
+    <descDepartamento>Compras</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>200.3</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>DES</codDepartamento>
+    <descDepartamento>Descender</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>8.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>DOS</codDepartamento>
+    <descDepartamento>Departamento dos</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>2.22</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>ELD</codDepartamento>
+    <descDepartamento>Elderlezi</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>1.56</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>FUE</codDepartamento>
+    <descDepartamento>Departamento del Fuego</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>7.4</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>HAH</codDepartamento>
+    <descDepartamento>ha ha with the party yet</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>4.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>HIE</codDepartamento>
+    <descDepartamento>Poderes de hielo</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>4531.53</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>IOT</codDepartamento>
+    <descDepartamento>Departamento Iota</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>87.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>KAP</codDepartamento>
+    <descDepartamento>Departamento Kappa</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>85.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>KVA</codDepartamento>
+    <descDepartamento>Departamento Cuatro</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>1.11</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>KVI</codDepartamento>
+    <descDepartamento>Departamento Cinco</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>2.22</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>LAM</codDepartamento>
+    <descDepartamento>Departamento Lambda</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>7.32</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>MAR</codDepartamento>
+    <descDepartamento>Marketing</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>330.33</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>MIS</codDepartamento>
+    <descDepartamento>Come and kiss me</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>3</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>NAN</codDepartamento>
+    <descDepartamento>No es un n&#xFA;mero</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>0.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>NUE</codDepartamento>
+    <descDepartamento>Departamento nuevo</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>458.35</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>SES</codDepartamento>
+    <descDepartamento>Departamento Seis</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>3.33</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>SSH</codDepartamento>
+    <descDepartamento>Conexi&#xF3;n</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>55.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>TIE</codDepartamento>
+    <descDepartamento>Departamento Tierra</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>57</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>TRE</codDepartamento>
+    <descDepartamento>Departamento tres</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>333.33</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>UNO</codDepartamento>
+    <descDepartamento>Departamento uno</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>1.111</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>VEN</codDepartamento>
+    <descDepartamento>Ventas</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>250.51</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>WIS</codDepartamento>
+    <descDepartamento>Wisconsin</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>987.78</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>YOR</codDepartamento>
+    <descDepartamento>Nueva York</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>24.5</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>YOU</codDepartamento>
+    <descDepartamento>are the number one</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>1</volumenNegocio>
+  </departamento>
+  <departamento>
+    <codDepartamento>ZEA</codDepartamento>
+    <descDepartamento>Nueva Zelanda</descDepartamento>
+    <fechaBaja/>
+    <volumenNegocio>1234.5</volumenNegocio>
+  </departamento>
+</departamentos>

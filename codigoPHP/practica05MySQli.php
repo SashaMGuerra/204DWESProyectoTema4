@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
     Autor: Isabel Martínez Guerra
-    Fecha: 08/11/2021
+    Fecha: 16/11/2021
 -->
 <html>
     <head>
@@ -15,12 +15,12 @@
             table{
                 margin: auto;
             }
-            
+
             span{
                 font-size: small;
                 color: red;
             }
-            
+
             .showVariables{
                 border-collapse: collapse;
             }
@@ -31,12 +31,12 @@
         </style>
     </head>
     <body>
+        <h1>Introducción de tres departamentos.</h1>
         <main>
-            <h1>Introducción de tres departamentos.</h1>
             <?php
             /*
-             * Fecha de creación: 08/10/2021
-             * Fecha de última modificación: 11/10/2021
+             * Fecha de creación: 16/10/2021
+             * Fecha de última modificación: 16/10/2021
              * @version 1.0
              * @author Sasha
              * 
@@ -45,65 +45,65 @@
              */
 
             // Constantes para la conexión con la base de datos.
-            require_once '../config/configDBPDO.php';
-            
+            require_once '../config/configDBMySQLi.php';
+
             // Departamentos a insertar.
             $aDepartamentos = [
                 ['codDepartamento' => 'IOT',
-                'descDepartamento' => 'Departamento Iota',
-                'volumenNegocio' => '87.5'],
-                
+                    'descDepartamento' => 'Departamento Iota',
+                    'volumenNegocio' => '87.5'],
                 ['codDepartamento' => 'KAP',
-                'descDepartamento' => 'Departamento Kappa',
-                'volumenNegocio' => '85.5'],
-                
+                    'descDepartamento' => 'Departamento Kappa',
+                    'volumenNegocio' => '85.5'],
                 ['codDepartamento' => 'LAM',
-                'descDepartamento' => 'Departamento Lambda',
-                'volumenNegocio' => '7.32'],
+                    'descDepartamento' => 'Departamento Lambda',
+                    'volumenNegocio' => '7.32'],
             ];
-            
-            
-            try{
+
+
+            try {
                 // Query de inserción.
                 $sSentencia = <<<QUERY
                         INSERT INTO Departamento VALUES
-                        (:codDepartamento, :descDepartamento, null, :volumenNegocio);
+                        (?, ?, null, ?);
                 QUERY;
 
                 // Conexión con la base de datos.
-                $oDB = new PDO(HOST, USER, PASSWORD);
-
-                // Mostrado de las excepciones.
-                $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $oDB = new mysqli();
+                $oDB->connect(HOST, USER, PASSWORD, DB);
 
                 // Inicio de la transacción, deshabilita el autocommit.
-                $oDB->beginTransaction();
+                $oDB->begin_transaction();
 
-                // Preparación de la sentencia.
+                /* Preparación de la sentencia.
+                 * Devuelve un mysqli_stmt
+                 */
                 $oConsulta = $oDB->prepare($sSentencia);
 
                 /**
                  * Por cada departamento, ejecución de la consulta.
+                 * Las variables tienen tipos string, string y float (double).
                  */
                 foreach ($aDepartamentos as $aDepartamento) {
-                    $aParametros = [
-                        ':codDepartamento' => $aDepartamento['codDepartamento'],
-                        ':descDepartamento' => $aDepartamento['descDepartamento'],
-                        ':volumenNegocio' => $aDepartamento['volumenNegocio']
-                    ];
-
-                    $oConsulta->execute($aParametros);
-                    
+                    $oConsulta->bind_param('ssd', $aDepartamento['codDepartamento'], $aDepartamento['descDepartamento'], $aDepartamento['volumenNegocio']);
+                     
+                    $oConsulta->execute();
                 }
-                
+
                 /*
                  * Si no ha habido ningún error, commitea los cambios.
                  */
                 $oDB->commit();
-
-                echo '<div>Los datos se han introducido con éxito.</div>';
                 
-            }catch(PDOException $exception){
+                if($oConsulta->affected_rows>-1){
+                    echo '<div>Los datos se han introducido con éxito.</div>';
+                }
+                else{
+                    echo '<div>No se han podido introducir los datos.</div>';
+                }
+                
+                
+            } catch (PDOException $exception) {
                 /*
                  * Si ha habido algún error, vuelve atrás.
                  */
@@ -112,13 +112,11 @@
                  * Mostrado del código de error y su mensaje.
                  */
                 echo '<div>Se han encontrado errores:</div><ul>';
-                echo '<li>'.$exception->getCode().' : '.$exception->getMessage().'</li>';
+                echo '<li>' . $exception->getCode() . ' : ' . $exception->getMessage() . '</li>';
                 echo '</ul>';
+            } finally {
+                $oDB->close();
             }
-            finally{
-                unset($oDB);
-            }
-                
             ?>
         </main>
 
