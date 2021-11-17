@@ -97,6 +97,10 @@
                     <td><a href="codigoPHP/practica08PDOJSON.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo08PDOJSON.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
+                <tr>
+                    <td class="enunciado">9. MtoDepartamentos.</td>
+                    <td colspan="4"><a href="../204DWESMtoDepartamentosTema4/index.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                </tr>
             </table>
         </main>
         <footer>
