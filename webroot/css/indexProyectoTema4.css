@@ -12,6 +12,17 @@
     color: darkgray;
 }
 
+body{
+    font-family: sans-serif;
+}
+
+header{
+    text-align: center;
+}
+footer{
+    margin-top: 0;
+}
+
 table{
     text-align: center;
     margin: auto;
@@ -23,8 +34,11 @@ td{
     padding: 5px;
 }
 td.enunciado{
-    border: 1px solid gainsboro;
+    border-bottom: 2px dashed black;
     text-align: justify;
+}
+tr:last-of-type{
+    border-bottom: 2px dashed black;
 }
 td.tipo{
     font-size: 11px;

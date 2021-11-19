@@ -8,7 +8,14 @@
         <meta charset="UTF-8">
         <title>IMG - DWES 4-3 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../webroot/css/proyectoTema4common.css" rel="stylesheet" type="text/css"/>
+        <link href="../webroot/css/footerDown.css" rel="stylesheet" type="text/css"/>
         <style>
+            form, table{
+                width: 100%;
+                max-width: 800px;
+                margin: auto;
+            }
             .obligatorio:after{
                 content: "*";
                 color: red;
@@ -21,21 +28,25 @@
                 color: red;
             }
             
-            .showVariables{
+            .showSelect{
+                table-layout: fixed;
                 border-collapse: collapse;
             }
-            .showVariables td{
+            .showSelect td, .showSelect th{
                 border: 1px solid gainsboro;
                 padding: 5px;
             }
         </style>
     </head>
     <body>
+        <header>
+            <?php include_once './elementoBtVolver.php'; // Botón de regreso, ya formateado ?>
+        </header>
         <main>
             <?php
             /*
-             * Fecha de creación: 08/10/2021
-             * Fecha de última modificación: 10/10/2021
+             * @since 08/10/2021
+             * Fecha de última modificación: 19/11/2021
              * @version 1.0
              * @author Sasha
              * 
@@ -132,40 +143,51 @@
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                     // Query de inserción.
-                    $sSentencia = <<<QUERY
+                    $sInsert = <<<QUERY
                             INSERT INTO Departamento VALUES
-                            (:codDepartamento, :descDepartamento, null, :volumenNegocio);
+                            ("{$aFormulario['codDepartamento']}", "{$aFormulario['descDepartamento']}", null, {$aFormulario['volumenNegocio']});
                     QUERY;
                     
                     // Consulta preparada.
-                    $oConsulta = $oDB->prepare($sSentencia);
+                    $oConsulta = $oDB->prepare($sInsert);
                     
-                    /*
-                     * Array con la información que sustituirá los parámetros.
-                     */
-                    $aParametros = [
-                        ':codDepartamento' => $aFormulario['codDepartamento'],
-                        ':descDepartamento' => $aFormulario['descDepartamento'],
-                        ':volumenNegocio' => $aFormulario['volumenNegocio']
-                    ];
-                            
                     /*
                      * Ejecución de la consulta.
                      */
-                    $oConsulta->execute($aParametros);
+                    $oConsulta->execute();
                     
                     /*
-                    * Mostrado del contenido recogido por el formulario
-                    * en una tabla.
+                    * Si todo ha salido bien, mostrado de todos los registros de
+                     * la tabla.
                     */
-                   echo "<h2>Registro realizado:</h2>";
-                   echo '<table class="showVariables">';
-                   foreach ($aFormulario as $key => $value) {
-                       echo '<tr>';
-                       echo "<td>$key</td><td>$value</td>";
-                       echo '</tr>';
-                   }
-                   echo '</table>';
+                    // Query de select.
+                    $sSelect = <<<QUERY
+                            SELECT * FROM Departamento;
+                    QUERY;
+                    
+                    // Preparación y ejecución de la consulta.
+                    $oResultadoConsulta = $oDB->prepare($sSelect);
+                    $oResultadoConsulta->execute();
+                    
+                    echo '<h2>Inserción realizada con éxito</h2>';
+                    /*
+                     * Mostrado del select.
+                     */
+                    $aDepartamento = $oResultadoConsulta->fetchObject();
+                    echo '<table class="showSelect">';
+                    while ($aDepartamento) {
+                        ?>
+                            <tr>
+                                <td><?php echo $aDepartamento->codDepartamento ?></td>
+                                <td><?php echo $aDepartamento->descDepartamento ?></td>
+                                <td><?php echo $aDepartamento->fechaBaja ?></td>
+                                <td><?php echo $aDepartamento->volumenNegocio ?></td>
+                            </tr>
+                        <?php
+                        $aDepartamento = $oResultadoConsulta->fetchObject();
+                    }
+                    echo '</table>';
+                    
                     
                 }catch(PDOException $exception){
                     /*
@@ -290,5 +312,6 @@
         </main>
 
 
+        <?php include_once './elementoFooter.php'; // Footer, ya formateado ?>
     </body>
 </html>
