@@ -8,6 +8,8 @@
         <meta charset="UTF-8">
         <title>IMG - DWES 4-7 PDO JSON Importación</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../webroot/css/proyectoTema4common.css" rel="stylesheet" type="text/css"/>
+        <link href="../webroot/css/footerDown.css" rel="stylesheet" type="text/css"/>
         <style>
             fieldset{
                 border: none;
@@ -16,6 +18,7 @@
     </head>
     <body>
         <header>
+            <?php include_once './elementoBtVolver.php'; // Botón de regreso, ya formateado ?>
             <h1>Importación a la tabla Departamento.</h1>
         </header>
         <main>
@@ -120,6 +123,9 @@
                 // Decodificación del string en JSON a un array de arrays.
                 $aDepartamentos = json_decode($sJsonDepartamentos);
 
+                // Comienzo de la transacción.
+                $oDB->beginTransaction();
+                
                 if (!is_null($aDepartamentos)) {
 
                     /*
@@ -155,9 +161,15 @@
 
                             $oConsulta->execute();
                         }
+                        
+                        //Si la transacción ha ido bien, comitea cambios.
+                        $oDB->commit();
 
                         echo '<div>Se han introducido los datos con éxito.</div>';
                     } catch (PDOException $exception) {
+                        //Si la transacción ha fallado, no efectúa ningún cambio.
+                        $oDB->rollBack();
+                        
                         /*
                          * Mostrado del código de error y su mensaje.
                          */
@@ -206,5 +218,6 @@
 }
 ?>
         </main>
+            <?php include_once './elementoFooter.php'; // Footer, ya formateado ?>
     </body>
 </html>

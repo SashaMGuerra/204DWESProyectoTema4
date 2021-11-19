@@ -8,6 +8,8 @@
         <meta charset="UTF-8">
         <title>IMG - DWES 4-5 PDO</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../webroot/css/proyectoTema4common.css" rel="stylesheet" type="text/css"/>
+        <link href="../webroot/css/footerDown.css" rel="stylesheet" type="text/css"/>
         <style>
             form{
                 max-width: 500px;
@@ -31,7 +33,10 @@
         </style>
     </head>
     <body>
-        <h1>Introducción de tres departamentos.</h1>
+        <header>
+            <?php include_once './elementoBtVolver.php'; // Botón de regreso, ya formateado ?>
+            <h1>Introducción de tres departamentos.</h1>
+        </header>
         <main>
             <?php
             /*
@@ -119,6 +124,7 @@
             }
             ?>
         </main>
+        <?php include_once './elementoFooter.php'; // Footer, ya formateado ?>
 
 
     </body>

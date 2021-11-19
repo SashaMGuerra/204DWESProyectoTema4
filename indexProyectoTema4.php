@@ -7,11 +7,12 @@
     <head>
         <meta charset="UTF-8">
         <title>IMG - Tema 4</title>
-        <link href="webroot/css/common.css" rel="stylesheet" type="text/css"/>
+        <link href="webroot/css/proyectoTema4common.css" rel="stylesheet" type="text/css"/>
         <link href="webroot/css/indexProyectoTema4.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <header>
+            <a class="volver" href="../proyectoDWES/indexProyectoDWES.php">Volver</a>
             <h1>Desarrollo Web en Entorno Servidor</h1>
             <h2>Proyecto Tema 4</h2>
             <a href="mostrarcodigo/mostrarCodigoConfig.php">Fichero de configuración</a>
@@ -97,11 +98,13 @@
                     <td><a href="codigoPHP/practica08PDOJSON.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
                     <td><a href="mostrarcodigo/mostrarCodigo08PDOJSON.php"><img src="webroot/media/img/doc_icon.png" alt=""/></a></td>
                 </tr>
+                <tr>
+                    <td class="enunciado">9. MtoDepartamentos.</td>
+                    <td colspan="4"><a href="../204DWESMtoDepartamentosTema4/index.php"><img src="webroot/media/img/execute-icon.jpg" alt=""/></a></td>
+                </tr>
             </table>
         </main>
-        <footer>
-            <div>Modificado el 15/11/2021 - Mª Isabel Martínez Guerra</div>
-            <div><a href="https://github.com/SashaMGuerra/proyectoTema4"><img id="github" src="webroot/media/img/github_logo_white.png" alt="github logo"/></a></div>
-        </footer>
+        
+        <?php include_once './codigoPHP/elementoFooter.php'; // Footer, ya formateado ?>
     </body>
 </html>
