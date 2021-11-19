@@ -1,8 +1,14 @@
 2 - Cursor : Consulta preparada
+3 - mostrar departamentos tras inserción
+    valores directamente en el insert, sin parámetros.
 4 - Cuando se entra en la página, carga todos los registros.
+    sacar los td del código php a html
 6 - MySQLi
 7 y 8 - Log de errores.        
 7 - sin item(0) ni nodeValue.
+    cuandos casque uno, continúa + fichero de log; bind a parámetros
 
 8 JSON - Con fetch directamente para no tener que crear un array.
             Con DOMDocument.
+
+Poner botones de volver.
