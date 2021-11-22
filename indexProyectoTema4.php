@@ -15,13 +15,23 @@
             <a class="volver" href="../proyectoDWES/indexProyectoDWES.php">Volver</a>
             <h1>Desarrollo Web en Entorno Servidor</h1>
             <h2>Proyecto Tema 4</h2>
-            <a href="mostrarcodigo/mostrarCodigoConfig.php">Fichero de configuración</a>
         </header>
         <main>
+            <div class="db">
+                <h3>Scripts de la base de datos</h3>
+                <!-- Explotación 
+                <ul>
+                    <li><a href="scriptDB/CreaDAW2IMGDBDepartamentosExplotacion.php">Creación</a></li>
+                    <li><a href="scriptDB/CargaInicialDAW204DBDepartamentosExplotacion.php">Carga inicial</a></li>
+                    <li><a href="scriptDB/BorraDAW204DBDepartamentosExplotacion.php">Eliminación</a></li>
+                </ul>
+                -->
+                <!-- Desarrollo -->
+                <a href="mostrarcodigo/mostrarCodigoConfig.php">Ficheros de configuración</a>
+            </div>
             <table>
-                <caption>Prácticas</caption>
                 <tr>
-                    <th>Enunciados</th>
+                    <th>Prácticas</th>
                     <th colspan="2">PDO</th>
                     <th colspan="2">MySQLi</th>
                 </tr>

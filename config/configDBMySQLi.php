@@ -32,3 +32,12 @@ define('PASSWORD', 'P@ssw0rd');
 define('DB', 'DAW204DBDepartamentos');
  * 
  */
+
+/*
+// Explotación - 1&1
+define('HOST', 'db5005797392.hosting-data.io');
+define('USER', 'dbu2267525');
+define('PASSWORD', 'daw2_Sauces');
+define('DB', 'dbs4868794');
+ * 
+ */

@@ -41,11 +41,12 @@
         try{
             /*
              * Array de atributos de la conexión.
+             * Se han comentado los atributos no soportados por el driver.
              */
             $aAtributos = array(
-                "AUTOCOMMIT", "ERRMODE", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS",
-                "ORACLE_NULLS", "PERSISTENT", "PREFETCH", "SERVER_INFO", "SERVER_VERSION",
-                "TIMEOUT"
+                "AUTOCOMMIT", "CASE", "CLIENT_VERSION", "CONNECTION_STATUS", "DRIVER_NAME", "ERRMODE", 
+                "ORACLE_NULLS", "PERSISTENT"/*, "PREFETCH" */, "SERVER_INFO", "SERVER_VERSION",
+                /*"TIMEOUT"*/
             );
 
             // Establecimiento de la conexión.
@@ -86,7 +87,7 @@
             );
 
             // Establecimiento de la conexión.
-            $oPDO = new PDO(HOST, USER, 'paso');
+            $oPDO = new PDO(HOST, USER, 'abcd');
             $oPDO->setAttribute(PDO_ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Recorrido y mostrado de los atributos de la conexión.

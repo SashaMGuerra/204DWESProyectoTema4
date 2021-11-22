@@ -27,3 +27,11 @@ define('USER', 'usuarioDAW204DBDepartamentos');
 define('PASSWORD', 'P@ssw0rd');
  * 
  */
+
+/*
+// Explotación - 1 & 1;
+define('HOST', 'mysql:host=db5005797392.hosting-data.io;dbname=dbs4868794');
+define('USER', 'dbu2267525');
+define('PASSWORD', 'daw2_Sauces');
+ * 
+ */
