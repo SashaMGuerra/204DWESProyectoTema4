@@ -115,6 +115,6 @@
             </table>
         </main>
         
-        <?php include_once './codigoPHP/elementoFooter.php'; // Footer, ya formateado ?>
+        <?php include_once './codigoPHP/elementoFooter.php'; // Footer ?>
     </body>
 </html>

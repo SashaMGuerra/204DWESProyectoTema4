@@ -4,21 +4,33 @@
 */
 
 body{
-    margin: 0; 
+    margin: 0;
 }
 header, main{
     margin: 5px;
 }
 
 /* Estilo del footer */
-footer{
-    margin-top: 15px;
+/* Para mantener el footer abajo */
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+footer {
+    font-family: sans-serif;
     text-align: center;
     font-size: small;
     background-color: black;
     color: white;
-    width: 100%;
+    font-size: 11px;
     padding: 5px 0;
+    flex-shrink: 0;
 }
 footer > *{
     display: inline-block;

@@ -9,11 +9,13 @@
  * Constantes para la conexión con la base de datos MySQLi.
  */
 
+/*
 // Desarrollo - sauces.
 define('HOST', 'daw204.sauces.local');
 define('USER', 'User204DWESProyectoTema4');
 define('PASSWORD', 'paso');
 define('DB', 'DB204DWESProyectoTema4');
+*/
 
 /*
 // Desarrollo - Instituto.
@@ -25,13 +27,10 @@ define('DB', 'Departamento');
  */
 
 // Desarrollo - Casa.
-/*
 define('HOST', '192.168.1.30');
 define('USER', 'usuarioDAW204DBDepartamentos');
 define('PASSWORD', 'P@ssw0rd');
 define('DB', 'DAW204DBDepartamentos');
- * 
- */
 
 /*
 // Explotación - 1&1

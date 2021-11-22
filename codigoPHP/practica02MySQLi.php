@@ -9,7 +9,7 @@
         <title>IMG - DWES 4-2 MySQLi</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../webroot/css/proyectoTema4common.css" rel="stylesheet" type="text/css"/>
-        <link href="../webroot/css/footerDown.css" rel="stylesheet" type="text/css"/>
+        
         <style>
             table{
                 table-layout: fixed;
