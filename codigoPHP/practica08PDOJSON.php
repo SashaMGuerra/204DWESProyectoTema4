@@ -95,7 +95,7 @@
                 echo "<div>Se han escrito $iBytes bytes.</div>";
                 
                 ?>
-                <button><a href="practica08PDOdescargarArchivoJSON.php">Descárgame</a></button>
+                <button><a target="_blank" href="practica08PDOdescargarArchivoJSON.php">Descárgame</a></button>
                 <?php
                 
             } catch (PDOException $exception) {

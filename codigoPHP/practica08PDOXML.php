@@ -97,7 +97,7 @@
                 echo '<div>Se han escrito '.$oDoc->save('../tmp/tablaDepartamento.xml').' bytes</div>';
                 
                 ?>
-                <button><a href="practica08PDOdescargarArchivoXML.php">Descárgame</a></button>
+                <button><a target="_blank" href="practica08PDOdescargarArchivoXML.php">Descárgame</a></button>
                 <?php
                 
             } catch (PDOException $exception) {
