@@ -138,8 +138,6 @@
                 try{
                     // Conexión con la base de datos.
                     $oDB = new PDO(HOST, USER, PASSWORD);
-                    
-                    // Mostrado de las excepciones.
                     $oDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                     // Query de inserción.
