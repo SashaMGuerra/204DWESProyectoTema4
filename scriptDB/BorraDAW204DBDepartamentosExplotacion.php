@@ -12,21 +12,15 @@
         <h1>Script de eliminación de tablas</h1>
         <?php
         /**
-         * Configuración base de datos de 1&1 (explotación)
+         * @author Isabel Martínez Guerra
+         * @since 22/11/2021
+         * 
+         * Fichero de eliminación de las tablas del Tema 4.
          */
+        
         require_once '../config/configDBPDO.php'; // Fichero de configuración de la base de datos.
 
-        /**
-         * Configuración base de datos de 1&1 (explotación)
-         */
-
         $sInstrucciones = <<<QUERY
-            /* Eliminación de la base de datos
-            DROP DATABASE dbs4868794;
-
-            Eliminación del usuario 
-            DROP USER 'dbu2267525'@'%'; */
-
             USE dbs4868794;
             DROP TABLE IF EXISTS Departamento;
         QUERY;

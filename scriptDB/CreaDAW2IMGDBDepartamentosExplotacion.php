@@ -12,8 +12,12 @@
         <h1>Script de creación de tablas</h1>
         <?php
         /**
-         * Configuración base de datos de 1&1 (explotación)
+         * @author Isabel Martínez Guerra
+         * @since 22/11/2021
+         * 
+         * Fichero de creación de las tablas del Tema 4.
          */
+        
         require_once '../config/configDBPDO.php'; // Fichero de configuración de la base de datos.
 
         /**
